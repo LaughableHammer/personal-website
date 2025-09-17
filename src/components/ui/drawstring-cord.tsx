@@ -54,7 +54,7 @@ export default function FakeRopeCord({ onToggle }: Props) {
   return (
     <div
       ref={containerRef}
-      className="fixed top-0 right-10 z-[9999] flex flex-col items-center cursor-pointer select-none"
+      className="fixed top-0 right-[10vw] z-[9999] flex flex-col items-center cursor-pointer select-none"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
