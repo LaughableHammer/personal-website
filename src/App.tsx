@@ -6,36 +6,7 @@ import { LampContainer } from "./components/ui/lamp";
 import TypewriterCycle from "./components/ui/typewriter-effect";
 import DrawstringCord from "./components/ui/drawstring-cord";
 import { PixelatedCanvas } from "./components/ui/pixelated-canvas";
-import ImageCarousel from "./components/image-carousel";
-import { FloatingNav } from "./components/ui/floating-navbar";
-
-function Navbar() {
-  const navItems = [
-    {
-      name: "Home",
-      link: "/",
-      //icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Blog",
-      link: "/blog",
-      //icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Competitions",
-      link: "/comp",
-      // icon: (
-      //   <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
-      // ),
-    },
-  ];
-  return (
-    <div className="relative  w-full">
-      <FloatingNav navItems={navItems} />
-    </div>
-  );
-}
-
+import ImageCarousel from "./components/ui/image-carousel";
 
 function HeroSection({ lampOn, onToggle }: { lampOn: boolean; onToggle: () => void }) {
   return (
@@ -262,12 +233,11 @@ function App() {
                    bg-gradient-to-b from-cyan-900/40 via-cyan-800/20 to-transparent 
                    z-0 pointer-events-none"
       />
-      <Navbar/>
       <HeroSection lampOn={lampOn} onToggle={() => setLampOn(!lampOn)} />
       <AboutSection lampOn={lampOn} />
       {/* <ImageCarousel /> */}
       <ImageCarousel
-        images={["/secsoc1.jpg", "/secsoc2.jpg", "/secsoc3.jpg", "/secsoc4.jpg"]}
+        images={["/secsoc1.jpg", "/secsoc2.jpg", "/secsoc3.jpg", "/secsoc4.jpg", "/secsoc5.jpg"]}
         lightOn={lampOn}
       />
 

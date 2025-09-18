@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, type JSX } from "react";
 import {
   motion,
   AnimatePresence,
@@ -8,7 +8,29 @@ import {
 } from "motion/react";
 import { cn } from "@/lib/utils";
 
-export const FloatingNav = ({
+export function Navbar() {
+  const navItems = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "Blog",
+      link: "/blog",
+    },
+    {
+      name: "Competitions",
+      link: "/comps",
+    },
+  ];
+  return (
+    <div className="relative  w-full">
+      <FloatingNav navItems={navItems} />
+    </div>
+  );
+}
+
+const FloatingNav = ({
   navItems,
   className,
 }: {
