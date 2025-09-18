@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 function Competitions() {
   const ctfComps = [
-    { name: "CyberTaipan - Australian Youth Cyber Defence Competition 2021", result: "~40 / ~160 — Team: Cyber 4" },
+    { name: "CyberTaipan - Australian Youth Cyber Defence Competition 2021", result: "~40 / ~160 — Team: Cyber 4", link: "" },
     { name: "CyberTaipan - Australian Youth Cyber Defence Competition 2022", result: "~13 / ~160 — Team: Sudoers" },
     { name: "DUCTF 2022", result: "387 / 1938 — Team: Laughable-Duck" },
     { name: "CyberTaipan - Australian Youth Cyber Defence Competition 2023", result: "🥇 1 / ~160 | Won $1000 — Team: The Kernel Krushers" },
@@ -38,9 +38,20 @@ function Competitions() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <h1 className="text-5xl font-bold text-center bg-gradient-to-r from-white via-emerald-300 to-cyan-400 bg-clip-text text-transparent">
+        <div className="relative group w-full flex justify-center">
+          <h1 className="text-5xl font-bold text-center bg-gradient-to-r from-white via-emerald-300 to-cyan-400 bg-clip-text text-transparent">
+            Cyber Competitions
+          </h1>
+          {/* Tooltip */}
+          <div className="absolute top-full mt-2 bg-gray-800 text-white text-sm px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            at least the ones that I remembered to record :(
+          </div>
+        </div>
+
+
+        {/* <h1 className="text-5xl font-bold text-center bg-gradient-to-r from-white via-emerald-300 to-cyan-400 bg-clip-text text-transparent">
           Cyber Competitions
-        </h1>
+        </h1> */}
 
         <div className="space-y-6">
           {ctfComps.map((comp, i) => (
@@ -51,7 +62,7 @@ function Competitions() {
               whileHover={{ scale: 1.02, y: -3 }}
             >
               <h3 className="text-xl font-semibold text-emerald-400">{comp.name}</h3>
-              {/* {comp.link ? (
+              {comp.link ? (
                 <a
                   href={comp.link}
                   target="_blank"
@@ -62,7 +73,7 @@ function Competitions() {
                 </a>
               ) : (
                 <p className="text-slate-300 mt-1">{comp.result}</p>
-              )} */}
+              )}
             </motion.div>
           ))}
         </div>

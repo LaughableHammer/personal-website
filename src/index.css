@@ -110,7 +110,7 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-@layer base {
+/* @layer base {
   * {
     @apply border-border outline-ring/50;
   }
@@ -120,7 +120,7 @@
   html {
     @apply scroll-snap-y scroll-snap-mandatory;
   }
-}
+} */
 
 /* hide page scrollbar */
 html { scrollbar-width: none; } /* Firefox */
