@@ -1,15 +1,41 @@
 'use client'
-import { useRef, useState } from "react";
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "motion/react";
+import { useState } from "react";
+import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import "./App.css";
 import { LampContainer } from "./components/ui/lamp";
 import TypewriterCycle from "./components/ui/typewriter-effect";
 import DrawstringCord from "./components/ui/drawstring-cord";
 import { PixelatedCanvas } from "./components/ui/pixelated-canvas";
+import ImageCarousel from "./components/image-carousel";
+import { FloatingNav } from "./components/ui/floating-navbar";
 
-function useParallax(value: any, distance: number) {
-  return useTransform(value, [0, 1], [-distance, distance]);
+function Navbar() {
+  const navItems = [
+    {
+      name: "Home",
+      link: "/",
+      //icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
+    },
+    {
+      name: "Blog",
+      link: "/blog",
+      //icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white" />,
+    },
+    {
+      name: "Competitions",
+      link: "/comp",
+      // icon: (
+      //   <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
+      // ),
+    },
+  ];
+  return (
+    <div className="relative  w-full">
+      <FloatingNav navItems={navItems} />
+    </div>
+  );
 }
+
 
 function HeroSection({ lampOn, onToggle }: { lampOn: boolean; onToggle: () => void }) {
   return (
@@ -209,12 +235,6 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
               <p className="text-slate-300 leading-relaxed">
                 {skillDetails[activeSkill]}
               </p>
-              {/* <button
-                onClick={() => setActiveSkill(null)}
-                className="mt-6 px-4 py-2 bg-emerald-500 text-black rounded-lg hover:bg-emerald-400 transition"
-              >
-                Close
-              </button> */}
             </motion.div>
           </motion.div>
         )}
@@ -222,105 +242,6 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
     </section>
   );
 }
-
-// function AboutSection({ lampOn }: { lampOn: boolean }) {
-//   const [pixelated, setPixelated] = useState(false);
-
-//   return (
-//     <section 
-//       className="min-h-screen snap-start flex justify-center items-center relative px-6 sm:px-12 py-16 
-//                  bg-gradient-to-b from-black via-slate-900 to-slate-950 overflow-hidden"
-//     >
-//       <motion.div 
-//         className="max-w-7xl w-full flex flex-col lg:flex-row items-center gap-12"
-//         initial={{ opacity: 0, y: 50 }}
-//         whileInView={{ opacity: lampOn ? 1 : 0.25, y: 0 }}
-//         viewport={{ once: true, amount: 0.3 }}
-//         transition={{ duration: 1, ease: "easeOut" }}
-//       >
-//         {/* Left: Image */}
-//         <div className="w-full lg:w-1/2 flex justify-center">
-//           <div className="relative w-full max-w-sm lg:max-w-md">
-//             <div 
-//               className="mx-auto mt-8 cursor-pointer transition-transform hover:scale-105"
-//               onClick={() => setPixelated(!pixelated)}
-//             >
-//               {!pixelated ? (
-//                 <img
-//                   src="/cool_image.jpg"
-//                   alt="Normal"
-//                   className="rounded-xl border border-neutral-800 shadow-lg"
-//                 />
-//               ) : (
-//                 <div className="flex flex-col items-center space-y-4">
-//                   <PixelatedCanvas
-//                     src="/cool_image.jpg"
-//                     width={450}
-//                     height={650}
-//                     cellSize={1}
-//                     dotScale={0.9}
-//                     shape="square"
-//                     backgroundColor="#000000"
-//                     dropoutStrength={0.4}
-//                     interactive
-//                     distortionStrength={3}
-//                     distortionRadius={80}
-//                     distortionMode="swirl"
-//                     followSpeed={0.2}
-//                     jitterStrength={4}
-//                     jitterSpeed={4}
-//                     sampleAverage
-//                     tintColor="#FFFFFF"
-//                     tintStrength={0.2}
-//                     className="rounded-xl border border-neutral-800 shadow-lg"
-//                   />
-//                   is your cpu feeling it yet 😈
-                  
-//                 </div>
-//               )}
-//             </div>
-
-//             {/* Glows */}
-//             <div className="absolute -top-6 -right-6 w-28 h-28 bg-emerald-500/20 rounded-full blur-2xl" />
-//             <div className="absolute -bottom-10 -left-8 w-36 h-36 bg-cyan-500/10 rounded-full blur-3xl" />
-//           </div>
-//         </div>
-
-//         {/* Right: Text */}
-//         <div className="w-full lg:w-1/2">
-//           <div className="space-y-8">
-//             <h2 className="text-4xl lg:text-5xl font-bold 
-//                            bg-gradient-to-r from-white via-emerald-300 to-cyan-400 
-//                            bg-clip-text text-transparent leading-tight">
-//               whoami
-//             </h2>
-            
-//             <div className="space-y-5 text-lg leading-relaxed text-slate-300">
-//               <p>I'm the current director of Projects at UNSW SecSoc and before that I was in the Projects subcommittee.</p>
-//               <p>Alongside uni, I'm a penetration tester at Services Australia, focusing primarily on web app security.</p>
-//               <p>When I'm not doing security, you'll find me meddling with my homelab or playing car soccer.</p>
-//             </div>
-
-//             <div className="grid grid-cols-2 gap-4">
-//               {['Penetration Testing', 'Infrastructure', 'Programming', 'Mentoring'].map((skill) => (
-//                 <motion.div 
-//                   key={skill} 
-//                   className="bg-slate-900/60 backdrop-blur-md rounded-lg p-4 border border-slate-700/50 
-//                              hover:scale-105 hover:border-emerald-400/50 
-//                              hover:shadow-lg hover:shadow-emerald-500/10 transition-all"
-//                   whileHover={{ y: -3 }}
-//                 >
-//                   <span className="text-emerald-400 font-medium">{skill}</span>
-//                 </motion.div>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
-//       </motion.div>
-//     </section>
-//   );
-// }
-
 
 function App() {
   const [lampOn, setLampOn] = useState(false);
@@ -341,9 +262,15 @@ function App() {
                    bg-gradient-to-b from-cyan-900/40 via-cyan-800/20 to-transparent 
                    z-0 pointer-events-none"
       />
-
+      <Navbar/>
       <HeroSection lampOn={lampOn} onToggle={() => setLampOn(!lampOn)} />
       <AboutSection lampOn={lampOn} />
+      {/* <ImageCarousel /> */}
+      <ImageCarousel
+        images={["/secsoc1.jpg", "/secsoc2.jpg", "/secsoc3.jpg", "/secsoc4.jpg"]}
+        lightOn={lampOn}
+      />
+
 
       {/* Progress bar */}
       <motion.div
