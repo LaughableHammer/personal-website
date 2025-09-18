@@ -1,6 +1,6 @@
-"use client";
-import { useState, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+'use client';
+import { useState, useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 type Props = {
   onToggle: () => void;
@@ -10,26 +10,26 @@ export default function FakeRopeCord({ onToggle }: Props) {
   const [pulled, setPulled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // Motion values for interaction
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
+
   // Spring animations for smooth movement
   const swayX = useSpring(mouseX, { stiffness: 100, damping: 15 });
   const swayY = useSpring(mouseY, { stiffness: 80, damping: 12 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
-    
+
     const rect = containerRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
+
     // Calculate relative mouse position
     const relativeX = (e.clientX - centerX) / 40;
     const relativeY = Math.max(0, (e.clientY - centerY) / 60); // Only allow downward pull
-    
+
     mouseX.set(relativeX);
     mouseY.set(relativeY);
   };
@@ -43,7 +43,7 @@ export default function FakeRopeCord({ onToggle }: Props) {
   const handleClick = () => {
     setPulled(true);
     onToggle();
-    
+
     // Reset pull animation after a short delay
     setTimeout(() => setPulled(false), 300);
   };
@@ -62,18 +62,18 @@ export default function FakeRopeCord({ onToggle }: Props) {
     >
       {/* Ceiling attachment */}
       <div className="w-6 h-3 bg-gray-600 rounded-b-md shadow-sm mb-1" />
-      
+
       {/* Rope segments */}
       {segments.map((i) => {
         // Each segment inherits movement from previous segments with decay
         const segmentSwayX = useTransform(
-          swayX, 
-          (value) => value * Math.pow(0.85, i) // Decreasing influence down the chain
+          swayX,
+          (value) => value * Math.pow(0.85, i), // Decreasing influence down the chain
         );
-        
+
         const segmentSwayY = useTransform(
           swayY,
-          (value) => value * Math.pow(0.9, i)
+          (value) => value * Math.pow(0.9, i),
         );
 
         return (
@@ -89,7 +89,7 @@ export default function FakeRopeCord({ onToggle }: Props) {
             }}
             transition={{
               delay: i * 0.02,
-              type: "spring",
+              type: 'spring',
               stiffness: 150,
               damping: 20,
             }}
@@ -110,7 +110,7 @@ export default function FakeRopeCord({ onToggle }: Props) {
           </motion.div>
         );
       })}
-      
+
       {/* Knob with enhanced interaction */}
       <motion.div
         style={{
@@ -123,14 +123,14 @@ export default function FakeRopeCord({ onToggle }: Props) {
         }}
         whileHover={{
           scale: 1.15,
-          boxShadow: "0 4px 20px rgba(217, 119, 6, 0.3)",
+          boxShadow: '0 4px 20px rgba(217, 119, 6, 0.3)',
         }}
         whileTap={{
           scale: 0.95,
           y: 5,
         }}
         transition={{
-          type: "spring",
+          type: 'spring',
           stiffness: 200,
           damping: 15,
         }}

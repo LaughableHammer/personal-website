@@ -1,14 +1,20 @@
-'use client'
-import { useState } from "react";
-import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
-import "./App.css";
-import { LampContainer } from "./components/ui/lamp";
-import TypewriterCycle from "./components/ui/typewriter-effect";
-import DrawstringCord from "./components/ui/drawstring-cord";
-import { PixelatedCanvas } from "./components/ui/pixelated-canvas";
-import ImageCarousel from "./components/ui/image-carousel";
+'use client';
+import { useState } from 'react';
+import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
+import './App.css';
+import { LampContainer } from './components/ui/lamp';
+import TypewriterCycle from './components/ui/typewriter-effect';
+import DrawstringCord from './components/ui/drawstring-cord';
+import { PixelatedCanvas } from './components/ui/pixelated-canvas';
+import ImageCarousel from './components/ui/image-carousel';
 
-function HeroSection({ lampOn, onToggle }: { lampOn: boolean; onToggle: () => void }) {
+function HeroSection({
+  lampOn,
+  onToggle,
+}: {
+  lampOn: boolean;
+  onToggle: () => void;
+}) {
   return (
     <div className="relative min-h-screen w-full bg-black text-white overflow-x-hidden snap-start flex items-center justify-center pb-[10%]">
       {/* Drawstring Cord */}
@@ -32,7 +38,8 @@ function HeroSection({ lampOn, onToggle }: { lampOn: boolean; onToggle: () => vo
           >
             <TypewriterCycle />
             <p className="text-lg md:text-xl text-slate-400">
-              Part-time penetration tester for the Australian Government and full-time fan of the UNSW Security Society
+              Part-time penetration tester for the Australian Government and
+              full-time fan of the UNSW Security Society
             </p>
           </motion.div>
 
@@ -63,19 +70,25 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
   const [activeSkill, setActiveSkill] = useState<string | null>(null);
 
   const skillDetails: Record<string, React.ReactNode> = {
-    "Penetration Testing":
+    'Penetration Testing':
       "I use the skills I've acquired in countless CTF competitions to identify security flaws in web apps, APIs, and infrastructure to protect everyday Australians",
-    "Infrastructure":
-      "I enjoy setting up hardware/cloud infra to host projects that provide QOL improvements for myself and others",
-    "Programming": (<>I'm a CS student at UNSW and enjoy full stack dev (minus the frontend part) - checkout my latest project <a
-        href="https://secsock.secso.cc"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-emerald-400 underline hover:text-emerald-300"
-      >
-        SecSock
-      </a></>),
-    "Mentoring":
+    Infrastructure:
+      'I enjoy setting up hardware/cloud infra to host projects that provide QOL improvements for myself and others',
+    Programming: (
+      <>
+        I'm a CS student at UNSW and enjoy full stack dev (minus the frontend
+        part) - checkout my latest project{' '}
+        <a
+          href="https://secsock.secso.cc"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-emerald-400 underline hover:text-emerald-300"
+        >
+          SecSock
+        </a>
+      </>
+    ),
+    Mentoring:
       "As a previous cyber and networking tutor for high school students, I'm passionate about passing on my experience to those who want to get started in cyber",
   };
 
@@ -89,7 +102,7 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: lampOn ? 1 : 0.25, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ duration: 1, ease: 'easeOut' }}
       >
         {/* Left: Image */}
         <div className="w-full lg:w-1/2 flex justify-center">
@@ -228,7 +241,7 @@ function App() {
       {/* Global lamp glow overlay */}
       <motion.div
         animate={{ opacity: lampOn ? 1 : 0 }}
-        transition={{ duration: 1.2, ease: "easeInOut" }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
         className="fixed top-0 left-0 w-full h-full 
                    bg-gradient-to-b from-cyan-900/40 via-cyan-800/20 to-transparent 
                    z-0 pointer-events-none"
@@ -237,10 +250,15 @@ function App() {
       <AboutSection lampOn={lampOn} />
       {/* <ImageCarousel /> */}
       <ImageCarousel
-        images={["/secsoc1.jpg", "/secsoc2.jpg", "/secsoc3.jpg", "/secsoc4.jpg", "/secsoc5.jpg"]}
+        images={[
+          '/secsoc1.jpg',
+          '/secsoc2.jpg',
+          '/secsoc3.jpg',
+          '/secsoc4.jpg',
+          '/secsoc5.jpg',
+        ]}
         lightOn={lampOn}
       />
-
 
       {/* Progress bar */}
       <motion.div

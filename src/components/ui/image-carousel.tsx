@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 type ImageCarouselProps = {
   images: string[];
@@ -26,7 +26,7 @@ export default function ImageCarousel({
   return (
     <section
       className={`w-full min-h-screen flex flex-col items-center justify-center transition-all duration-1000 ${
-        lightOn ? "brightness-100" : "brightness-50"
+        lightOn ? 'brightness-100' : 'brightness-50'
       }`}
     >
       <div className="relative w-full max-w-5xl overflow-hidden rounded-2xl shadow-xl">

@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 type PixelatedCanvasProps = {
   src: string;
@@ -10,7 +10,7 @@ type PixelatedCanvasProps = {
   /** Dot size as a fraction of cell size (0..1). */
   dotScale?: number;
   /** Shape of the dot drawn for each sample. */
-  shape?: "circle" | "square";
+  shape?: 'circle' | 'square';
   /** Optional background color to clear the canvas with before drawing. */
   backgroundColor?: string;
   /** Convert to grayscale before drawing. */
@@ -27,7 +27,7 @@ type PixelatedCanvasProps = {
   /** Radius (px) around pointer influencing distortion. */
   distortionRadius?: number;
   /** How pixels move near the pointer. */
-  distortionMode?: "repel" | "attract" | "swirl";
+  distortionMode?: 'repel' | 'attract' | 'swirl';
   /** 0..1 smoothing factor for pointer follow. */
   followSpeed?: number;
   /** Average multiple samples per cell instead of single center sample. */
@@ -39,7 +39,7 @@ type PixelatedCanvasProps = {
   /** Cap animation frame rate to improve perf on large canvases. */
   maxFps?: number;
   /** Object-fit behavior for the source image within the canvas. */
-  objectFit?: "cover" | "contain" | "fill" | "none";
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none';
   /** Random motion amplitude for dots near the pointer. */
   jitterStrength?: number;
   /** Speed factor for the random motion. */
@@ -56,8 +56,8 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
   height = 500,
   cellSize = 3,
   dotScale = 0.9,
-  shape = "square",
-  backgroundColor = "#000000",
+  shape = 'square',
+  backgroundColor = '#000000',
   grayscale = false,
   className,
   responsive = false,
@@ -65,13 +65,13 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
   interactive = true,
   distortionStrength = 3,
   distortionRadius = 80,
-  distortionMode = "swirl",
+  distortionMode = 'swirl',
   followSpeed = 0.2,
   sampleAverage = true,
-  tintColor = "#FFFFFF",
+  tintColor = '#FFFFFF',
   tintStrength = 0.2,
   maxFps = 60,
-  objectFit = "cover",
+  objectFit = 'cover',
   jitterStrength = 4,
   jitterSpeed = 4,
   fadeOnLeave = true,
@@ -115,13 +115,13 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
     if (!canvas) return;
 
     const img = new Image();
-    img.crossOrigin = "anonymous";
+    img.crossOrigin = 'anonymous';
     img.src = src;
 
     const compute = () => {
       if (!canvas) return;
       const dpr =
-        typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+        typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
 
       const displayWidth = width ?? img.naturalWidth;
       const displayHeight = height ?? img.naturalHeight;
@@ -131,7 +131,7 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
       canvas.style.width = `${displayWidth}px`;
       canvas.style.height = `${displayHeight}px`;
 
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext('2d');
       if (!ctx) return;
       ctx.resetTransform();
       ctx.scale(dpr, dpr);
@@ -143,10 +143,10 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
         ctx.clearRect(0, 0, displayWidth, displayHeight);
       }
 
-      const offscreen = document.createElement("canvas");
+      const offscreen = document.createElement('canvas');
       offscreen.width = Math.max(1, Math.floor(displayWidth));
       offscreen.height = Math.max(1, Math.floor(displayHeight));
-      const off = offscreen.getContext("2d");
+      const off = offscreen.getContext('2d');
       if (!off) return;
 
       const iw = img.naturalWidth || displayWidth;
@@ -155,19 +155,19 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
       let dh = displayHeight;
       let dx = 0;
       let dy = 0;
-      if (objectFit === "cover") {
+      if (objectFit === 'cover') {
         const scale = Math.max(displayWidth / iw, displayHeight / ih);
         dw = Math.ceil(iw * scale);
         dh = Math.ceil(ih * scale);
         dx = Math.floor((displayWidth - dw) / 2);
         dy = Math.floor((displayHeight - dh) / 2);
-      } else if (objectFit === "contain") {
+      } else if (objectFit === 'contain') {
         const scale = Math.min(displayWidth / iw, displayHeight / ih);
         dw = Math.ceil(iw * scale);
         dh = Math.ceil(ih * scale);
         dx = Math.floor((displayWidth - dw) / 2);
         dy = Math.floor((displayHeight - dh) / 2);
-      } else if (objectFit === "fill") {
+      } else if (objectFit === 'fill') {
         dw = displayWidth;
         dh = displayHeight;
       } else {
@@ -224,7 +224,7 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
       let tintRGB: [number, number, number] | null = null;
       if (tintColor && tintStrength > 0) {
         const parse = (c: string): [number, number, number] | null => {
-          if (c.startsWith("#")) {
+          if (c.startsWith('#')) {
             const hex = c.slice(1);
             if (hex.length === 3) {
               const r = parseInt(hex[0] + hex[0], 16);
@@ -325,7 +325,7 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
       if (!canvasEl) return;
 
       if (!interactive) {
-        const ctx = canvasEl.getContext("2d");
+        const ctx = canvasEl.getContext('2d');
         const dims = dimsRef.current;
         const samples = samplesRef.current;
         if (!ctx || !dims || !samples) return;
@@ -339,7 +339,7 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
           if (s.drop || s.a <= 0) continue;
           ctx.globalAlpha = s.a;
           ctx.fillStyle = `rgb(${s.r}, ${s.g}, ${s.b})`;
-          if (shape === "circle") {
+          if (shape === 'circle') {
             const radius = dims.dot / 2;
             ctx.beginPath();
             ctx.arc(
@@ -383,9 +383,9 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
           targetMouseRef.current.y = -9999;
         }
       };
-      canvasEl.addEventListener("pointermove", onPointerMove);
-      canvasEl.addEventListener("pointerenter", onPointerEnter);
-      canvasEl.addEventListener("pointerleave", onPointerLeave);
+      canvasEl.addEventListener('pointermove', onPointerMove);
+      canvasEl.addEventListener('pointerenter', onPointerEnter);
+      canvasEl.addEventListener('pointerleave', onPointerLeave);
 
       const animate = () => {
         const now = performance.now();
@@ -395,7 +395,7 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
           return;
         }
         lastFrameRef.current = now;
-        const ctx = canvasEl.getContext("2d");
+        const ctx = canvasEl.getContext('2d');
         const dims = dimsRef.current;
         const samples = samplesRef.current;
         if (!ctx || !dims || !samples) {
@@ -441,15 +441,15 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
           const falloff = Math.exp(-dist2 / (2 * sigma * sigma));
           const influence = falloff * activity;
           if (influence > 0.0005) {
-            if (distortionMode === "repel") {
+            if (distortionMode === 'repel') {
               const dist = Math.sqrt(dist2) + 0.0001;
               drawX += (dx / dist) * distortionStrength * influence;
               drawY += (dy / dist) * distortionStrength * influence;
-            } else if (distortionMode === "attract") {
+            } else if (distortionMode === 'attract') {
               const dist = Math.sqrt(dist2) + 0.0001;
               drawX -= (dx / dist) * distortionStrength * influence;
               drawY -= (dy / dist) * distortionStrength * influence;
-            } else if (distortionMode === "swirl") {
+            } else if (distortionMode === 'swirl') {
               const angle = distortionStrength * 0.05 * influence;
               const cosA = Math.cos(angle);
               const sinA = Math.sin(angle);
@@ -470,7 +470,7 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
 
           ctx.globalAlpha = s.a;
           ctx.fillStyle = `rgb(${s.r}, ${s.g}, ${s.b})`;
-          if (shape === "circle") {
+          if (shape === 'circle') {
             const radius = dims.dot / 2;
             ctx.beginPath();
             ctx.arc(drawX, drawY, radius, 0, Math.PI * 2);
@@ -493,16 +493,16 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
       rafRef.current = requestAnimationFrame(animate);
 
       const cleanup = () => {
-        canvasEl.removeEventListener("pointermove", onPointerMove);
-        canvasEl.removeEventListener("pointerenter", onPointerEnter);
-        canvasEl.removeEventListener("pointerleave", onPointerLeave);
+        canvasEl.removeEventListener('pointermove', onPointerMove);
+        canvasEl.removeEventListener('pointerenter', onPointerEnter);
+        canvasEl.removeEventListener('pointerleave', onPointerLeave);
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
       };
       (img as any)._cleanup = cleanup;
     };
 
     img.onerror = () => {
-      console.error("Failed to load image for PixelatedCanvas:", src);
+      console.error('Failed to load image for PixelatedCanvas:', src);
     };
 
     if (responsive) {
@@ -511,10 +511,10 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
           compute();
         }
       };
-      window.addEventListener("resize", onResize);
+      window.addEventListener('resize', onResize);
       return () => {
         isCancelled = true;
-        window.removeEventListener("resize", onResize);
+        window.removeEventListener('resize', onResize);
         if ((img as any)._cleanup) (img as any)._cleanup();
       };
     }

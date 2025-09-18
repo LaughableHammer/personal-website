@@ -1,33 +1,50 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 function Competitions() {
   const ctfComps = [
-    { name: "CyberTaipan - Australian Youth Cyber Defence Competition 2021", result: "~40 / ~160 — Team: Cyber 4", link: "" },
-    { name: "CyberTaipan - Australian Youth Cyber Defence Competition 2022", result: "~13 / ~160 — Team: Sudoers" },
-    { name: "DUCTF 2022", result: "387 / 1938 — Team: Laughable-Duck" },
-    { name: "CyberTaipan - Australian Youth Cyber Defence Competition 2023", result: "🥇 1 / ~160 | Won $1000 — Team: The Kernel Krushers" },
-    { name: "DUCTF 2024", result: "234 / 1515 — Team: The Kernel Krushers" },
-    { name: "DamCTF 2024", result: "62 / 207 — Team: P4$$word123" },
-    { name: "ASD ANU CTF 2024", result: "88 / 187 — Team: The Kernel Krushers" },
     {
-      name: "NahamCon CTF 2025",
-      result: "388 / 2943 — Team: [Sev.Aus] Cyb3r-Gh0u1z",
+      name: 'CyberTaipan - Australian Youth Cyber Defence Competition 2021',
+      result: '~40 / ~160 — Team: Cyber 4',
+      link: '',
     },
     {
-      name: "SecSoc + DevSoc + CSESoc Rookie Code Rumble CTF (May 2025)",
+      name: 'CyberTaipan - Australian Youth Cyber Defence Competition 2022',
+      result: '~13 / ~160 — Team: Sudoers',
+    },
+    { name: 'DUCTF 2022', result: '387 / 1938 — Team: Laughable-Duck' },
+    {
+      name: 'CyberTaipan - Australian Youth Cyber Defence Competition 2023',
+      result: '🥇 1 / ~160 | Won $1000 — Team: The Kernel Krushers',
+    },
+    { name: 'DUCTF 2024', result: '234 / 1515 — Team: The Kernel Krushers' },
+    { name: 'DamCTF 2024', result: '62 / 207 — Team: P4$$word123' },
+    {
+      name: 'ASD ANU CTF 2024',
+      result: '88 / 187 — Team: The Kernel Krushers',
+    },
+    {
+      name: 'NahamCon CTF 2025',
+      result: '388 / 2943 — Team: [Sev.Aus] Cyb3r-Gh0u1z',
+    },
+    {
+      name: 'SecSoc + DevSoc + CSESoc Rookie Code Rumble CTF (May 2025)',
       result:
-        "🥇 1st non-beginner | 🥉 3rd overall | Won $90 — Team: The Hammers",
+        '🥇 1st non-beginner | 🥉 3rd overall | Won $90 — Team: The Hammers',
     },
-    { name: "DUCTF 2025", result: "473 / 1668 — Team: [Sev.Aus] Cyber Ghoulz" },
+    { name: 'DUCTF 2025', result: '473 / 1668 — Team: [Sev.Aus] Cyber Ghoulz' },
     {
-      name: "SecTalks Ninja Night 18",
-      result: "🥉 3 / 20 | Won $10, RPi Pico, clear lockpicking lock — Team: ecorp",
+      name: 'SecTalks Ninja Night 18',
+      result:
+        '🥉 3 / 20 | Won $10, RPi Pico, clear lockpicking lock — Team: ecorp',
     },
   ];
 
   const codingComps = [
-    { name: "CSE Rookie Code Rumble 2024", result: "🥇 1st place" },
-    { name: "South Pacific ICPC Level B 2024", result: "18 / 52 teams at UNSW" },
+    { name: 'CSE Rookie Code Rumble 2024', result: '🥇 1st place' },
+    {
+      name: 'South Pacific ICPC Level B 2024',
+      result: '18 / 52 teams at UNSW',
+    },
   ];
 
   return (
@@ -48,7 +65,6 @@ function Competitions() {
           </div>
         </div>
 
-
         {/* <h1 className="text-5xl font-bold text-center bg-gradient-to-r from-white via-emerald-300 to-cyan-400 bg-clip-text text-transparent">
           Cyber Competitions
         </h1> */}
@@ -61,7 +77,9 @@ function Competitions() {
                          hover:border-emerald-400/50 hover:shadow-lg hover:shadow-emerald-500/10 transition-all"
               whileHover={{ scale: 1.02, y: -3 }}
             >
-              <h3 className="text-xl font-semibold text-emerald-400">{comp.name}</h3>
+              <h3 className="text-xl font-semibold text-emerald-400">
+                {comp.name}
+              </h3>
               {comp.link ? (
                 <a
                   href={comp.link}
@@ -90,7 +108,9 @@ function Competitions() {
                          hover:border-emerald-400/50 hover:shadow-lg hover:shadow-emerald-500/10 transition-all"
               whileHover={{ scale: 1.02, y: -3 }}
             >
-              <h3 className="text-xl font-semibold text-emerald-400">{comp.name}</h3>
+              <h3 className="text-xl font-semibold text-emerald-400">
+                {comp.name}
+              </h3>
               <p className="text-slate-300 mt-1">{comp.result}</p>
             </motion.div>
           ))}

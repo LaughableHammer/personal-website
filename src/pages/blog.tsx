@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 function Blog() {
   return (
@@ -13,7 +13,7 @@ function Blog() {
           Blog
         </h1>
         <p className="text-slate-400 text-lg">
-          No posts yet — but stay tuned!  
+          No posts yet — but stay tuned!
           <br />
           I’ll be writing about CTFs, security projects, and CVEs soon 🚀
         </p>

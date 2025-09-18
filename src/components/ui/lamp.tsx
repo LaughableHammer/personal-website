@@ -1,6 +1,6 @@
-"use client";
-import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
+'use client';
+import { motion } from 'motion/react';
+import { cn } from '@/lib/utils';
 
 export const LampContainer = ({
   className,
@@ -12,8 +12,8 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex flex-col items-center justify-start w-full overflow-hidden",
-        className
+        'relative flex flex-col items-center justify-start w-full overflow-hidden',
+        className,
       )}
     >
       <div className="relative flex w-full scale-y-125 items-center justify-center isolate">

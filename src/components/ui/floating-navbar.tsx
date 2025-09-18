@@ -1,26 +1,26 @@
-"use client";
-import { useState, type JSX } from "react";
+'use client';
+import { useState, type JSX } from 'react';
 import {
   motion,
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
-} from "motion/react";
-import { cn } from "@/lib/utils";
+} from 'motion/react';
+import { cn } from '@/lib/utils';
 
 export function Navbar() {
   const navItems = [
     {
-      name: "Home",
-      link: "/",
+      name: 'Home',
+      link: '/',
     },
     {
-      name: "Blog",
-      link: "/blog",
+      name: 'Blog',
+      link: '/blog',
     },
     {
-      name: "Competitions",
-      link: "/comps",
+      name: 'Competitions',
+      link: '/comps',
     },
   ];
   return (
@@ -44,8 +44,8 @@ const FloatingNav = ({
   const { scrollYProgress } = useScroll();
   const [visible, setVisible] = useState(false);
 
-  useMotionValueEvent(scrollYProgress, "change", (current) => {
-    if (typeof current === "number") {
+  useMotionValueEvent(scrollYProgress, 'change', (current) => {
+    if (typeof current === 'number') {
       let direction = current! - scrollYProgress.getPrevious()!;
       if (scrollYProgress.get() < 0.05) {
         setVisible(false);
@@ -60,12 +60,12 @@ const FloatingNav = ({
       <motion.div
         initial={{ opacity: 0, y: -100 }}
         animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
         className={cn(
-          "flex max-w-fit fixed top-8 inset-x-0 mx-auto z-[5000] px-6 py-3 items-center justify-center space-x-6",
-          "rounded-full backdrop-blur-md border border-emerald-400/30 shadow-lg shadow-emerald-500/10",
-          "bg-slate-900/80 text-slate-200",
-          className
+          'flex max-w-fit fixed top-8 inset-x-0 mx-auto z-[5000] px-6 py-3 items-center justify-center space-x-6',
+          'rounded-full backdrop-blur-md border border-emerald-400/30 shadow-lg shadow-emerald-500/10',
+          'bg-slate-900/80 text-slate-200',
+          className,
         )}
       >
         {navItems.map((navItem, idx) => (
@@ -73,8 +73,8 @@ const FloatingNav = ({
             key={`link-${idx}`}
             href={navItem.link}
             className={cn(
-              "relative flex items-center space-x-1 text-sm font-medium transition-colors duration-200",
-              "hover:text-emerald-300"
+              'relative flex items-center space-x-1 text-sm font-medium transition-colors duration-200',
+              'hover:text-emerald-300',
             )}
           >
             <span className="block sm:hidden">{navItem.icon}</span>

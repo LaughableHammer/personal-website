@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { motion } from "motion/react";
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 export default function TypewriterCycle() {
-  const words = ["Kushaagra", "LaughableHammer"];
-  const [displayed, setDisplayed] = useState("");
+  const words = ['Kushaagra', 'LaughableHammer'];
+  const [displayed, setDisplayed] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const [pause, setPause] = useState(false);
@@ -18,27 +18,30 @@ export default function TypewriterCycle() {
     if (pause) {
       timeout = setTimeout(() => setPause(false), 2000); // 2 sec pause
     } else {
-      timeout = setTimeout(() => {
-        if (!deleting) {
-          // Typing forward
-          if (displayed.length < currentWord.length) {
-            setDisplayed(currentWord.slice(0, displayed.length + 1));
+      timeout = setTimeout(
+        () => {
+          if (!deleting) {
+            // Typing forward
+            if (displayed.length < currentWord.length) {
+              setDisplayed(currentWord.slice(0, displayed.length + 1));
+            } else {
+              // full word typed → pause then delete
+              setPause(true);
+              setTimeout(() => setDeleting(true), 2000);
+            }
           } else {
-            // full word typed → pause then delete
-            setPause(true);
-            setTimeout(() => setDeleting(true), 2000);
+            // Deleting backward
+            if (displayed.length > 0) {
+              setDisplayed(currentWord.slice(0, displayed.length - 1));
+            } else {
+              // switch word
+              setDeleting(false);
+              setWordIndex((wordIndex + 1) % words.length);
+            }
           }
-        } else {
-          // Deleting backward
-          if (displayed.length > 0) {
-            setDisplayed(currentWord.slice(0, displayed.length - 1));
-          } else {
-            // switch word
-            setDeleting(false);
-            setWordIndex((wordIndex + 1) % words.length);
-          }
-        }
-      }, deleting ? 80 : 150); // typing speed vs deleting speed
+        },
+        deleting ? 80 : 150,
+      ); // typing speed vs deleting speed
     }
 
     return () => clearTimeout(timeout);
@@ -55,7 +58,7 @@ export default function TypewriterCycle() {
       <div className="flex items-center justify-center space-x-1 h-[3.5rem] sm:h-[4rem] md:h-[5rem] lg:h-[6rem]">
         <span
           className={cn(
-            "pb-2 text-4xl md:text-6xl font-bold bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text text-transparent"
+            'pb-2 text-4xl md:text-6xl font-bold bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text text-transparent',
           )}
         >
           {displayed}
