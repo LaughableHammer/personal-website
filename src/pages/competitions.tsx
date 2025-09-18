@@ -51,7 +51,7 @@ function Competitions() {
               whileHover={{ scale: 1.02, y: -3 }}
             >
               <h3 className="text-xl font-semibold text-emerald-400">{comp.name}</h3>
-              {comp.link ? (
+              {/* {comp.link ? (
                 <a
                   href={comp.link}
                   target="_blank"
@@ -62,7 +62,7 @@ function Competitions() {
                 </a>
               ) : (
                 <p className="text-slate-300 mt-1">{comp.result}</p>
-              )}
+              )} */}
             </motion.div>
           ))}
         </div>

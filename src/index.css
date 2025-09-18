@@ -117,6 +117,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  html {
+    @apply scroll-snap-y scroll-snap-mandatory;
+  }
 }
 
 /* hide page scrollbar */
