@@ -1,11 +1,11 @@
-import { StrictMode } from 'react';
+import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
-import Blog from './pages/blog';
-import Competitions from './pages/competitions';
+const App = lazy(() => import("./App"));
+const Blog = lazy(() => import("./pages/blog"));
+const Competitions = lazy(() => import("./pages/competitions"));
 import { Navbar } from './components/ui/floating-navbar';
 
 const router = createBrowserRouter([
@@ -17,6 +17,8 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Navbar />
-    <RouterProvider router={router} />
+    <Suspense fallback={<div className="text-white p-10">Loading...</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
   </StrictMode>,
 );
