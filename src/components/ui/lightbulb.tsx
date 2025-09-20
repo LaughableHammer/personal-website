@@ -1,5 +1,5 @@
-"use client";
-import { motion } from "motion/react";
+'use client';
+import { motion } from 'motion/react';
 
 export default function LightBulb({
   lampOn,
@@ -36,30 +36,33 @@ export default function LightBulb({
         {/* Multiple overlapping circular glows for realistic falloff */}
         <div className="relative">
           {/* Innermost bright glow */}
-          <div 
+          <div
             className="fixed -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
               width: '400px',
               height: '400px',
-              background: 'radial-gradient(circle, rgba(224,247,255,0.6) 0%, rgba(96,165,250,0.3) 20%, rgba(59,130,246,0.15) 40%, rgba(59,130,246,0.08) 60%, transparent 80%)',
+              background:
+                'radial-gradient(circle, rgba(224,247,255,0.6) 0%, rgba(96,165,250,0.3) 20%, rgba(59,130,246,0.15) 40%, rgba(59,130,246,0.08) 60%, transparent 80%)',
             }}
           />
           {/* Middle glow */}
-          <div 
+          <div
             className="fixed -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
               width: '600px',
               height: '600px',
-              background: 'radial-gradient(circle, transparent 0%, rgba(96,165,250,0.12) 30%, rgba(59,130,246,0.06) 50%, rgba(59,130,246,0.03) 70%, transparent 85%)',
+              background:
+                'radial-gradient(circle, transparent 0%, rgba(96,165,250,0.12) 30%, rgba(59,130,246,0.06) 50%, rgba(59,130,246,0.03) 70%, transparent 85%)',
             }}
           />
           {/* Outer subtle glow */}
-          <div 
+          <div
             className="fixed -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
               width: '800px',
               height: '800px',
-              background: 'radial-gradient(circle, transparent 0%, rgba(96,165,250,0.05) 40%, rgba(59,130,246,0.025) 60%, rgba(59,130,246,0.015) 80%, transparent 95%)',
+              background:
+                'radial-gradient(circle, transparent 0%, rgba(96,165,250,0.05) 40%, rgba(59,130,246,0.025) 60%, rgba(59,130,246,0.015) 80%, transparent 95%)',
             }}
           />
         </div>
@@ -84,14 +87,14 @@ export default function LightBulb({
             <stop offset="50%" stopColor="#e2e8f0" stopOpacity="0.1" />
             <stop offset="100%" stopColor="#0f172a" stopOpacity="0.25" />
           </linearGradient>
-          
+
           {/* Metallic caps */}
           <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#d1d5db" />
             <stop offset="50%" stopColor="#9ca3af" />
             <stop offset="100%" stopColor="#6b7280" />
           </linearGradient>
-          
+
           {/* Enhanced tube glow with sharper transitions */}
           <linearGradient id="tubeGlowLinear" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#60a5fa" stopOpacity="0" />
@@ -102,7 +105,7 @@ export default function LightBulb({
             <stop offset="95%" stopColor="#e0f7ff" stopOpacity="0.3" />
             <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
           </linearGradient>
-          
+
           {/* Intense center glow */}
           <linearGradient id="centerGlow" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="transparent" />
@@ -187,9 +190,7 @@ export default function LightBulb({
           strokeWidth="0.5"
           opacity={lampOn ? 0.8 : 0}
           animate={{
-            opacity: lampOn
-              ? [0, 0.3, 0.1, 0.8, 0.4, 1, 0.7, 0.9, 1]
-              : 0,
+            opacity: lampOn ? [0, 0.3, 0.1, 0.8, 0.4, 1, 0.7, 0.9, 1] : 0,
           }}
           transition={{
             duration: lampOn ? 2.2 : 0.3,
@@ -200,11 +201,6 @@ export default function LightBulb({
     </div>
   );
 }
-
-
-
-
-
 
 // "use client";
 // import { motion } from "motion/react";

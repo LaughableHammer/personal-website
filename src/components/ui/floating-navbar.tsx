@@ -7,24 +7,28 @@ import {
   useMotionValueEvent,
 } from 'motion/react';
 import { cn } from '@/lib/utils';
+import { Home, Trophy, BookOpen } from 'lucide-react'; // example icons
 
 export function Navbar() {
   const navItems = [
     {
       name: 'Home',
       link: '/',
-    },
-    {
-      name: 'Blog',
-      link: '/blog',
+      icon: <Home className="w-5 h-5" />,
     },
     {
       name: 'Competitions',
       link: '/comps',
+      icon: <Trophy className="w-5 h-5" />,
+    },
+    {
+      name: 'Blog',
+      link: '/blog',
+      icon: <BookOpen className="w-5 h-5" />,
     },
   ];
   return (
-    <div className="relative  w-full">
+    <div className="relative w-full">
       <FloatingNav navItems={navItems} />
     </div>
   );
@@ -62,7 +66,8 @@ const FloatingNav = ({
         animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
         className={cn(
-          'flex max-w-fit fixed top-8 inset-x-0 mx-auto z-[5000] px-6 py-3 items-center justify-center space-x-6',
+          // moved lower with top-14
+          'flex max-w-fit fixed top-14 inset-x-0 mx-auto z-[5000] px-6 py-3 items-center justify-center space-x-6',
           'rounded-full backdrop-blur-md border border-emerald-400/30 shadow-lg shadow-emerald-500/10',
           'bg-slate-900/80 text-slate-200',
           className,
@@ -73,12 +78,13 @@ const FloatingNav = ({
             key={`link-${idx}`}
             href={navItem.link}
             className={cn(
-              'relative flex items-center space-x-1 text-sm font-medium transition-colors duration-200',
+              'relative flex items-center gap-2 text-sm font-medium transition-colors duration-200 group',
               'hover:text-emerald-300',
             )}
           >
-            <span className="block sm:hidden">{navItem.icon}</span>
-            <span className="hidden sm:block">{navItem.name}</span>
+            {/* Always show icon on mobile, show text on md+ */}
+            <span className="block">{navItem.icon}</span>
+            <span className="hidden md:block">{navItem.name}</span>
             {/* glowing underline on hover */}
             <span className="absolute -bottom-1 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 origin-left bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 transition-transform" />
           </a>

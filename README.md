@@ -6,6 +6,7 @@ It showcases my projects, CTF competitions, and other activities in a dynamic, i
 ---
 
 ## 🛠️ Tech Stack
+
 - [React](https://react.dev/) (with Vite)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Framer Motion](https://www.framer.com/motion/) for animations
@@ -17,8 +18,10 @@ It showcases my projects, CTF competitions, and other activities in a dynamic, i
 ## 📦 Getting Started
 
 ### Clone & Install
+
 ```bash
 git clone https://github.com/LaughableHammer/personal-website
 cd personal-website
 npm install
 npm run dev
+```

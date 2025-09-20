@@ -9,11 +9,7 @@ import { PixelatedCanvas } from './components/ui/pixelated-canvas';
 import ImageCarousel from './components/ui/image-carousel';
 import LightBulb from './components/ui/lightbulb';
 
-function HeroSection({
-  lampOn,
-}: {
-  lampOn: boolean;
-}) {
+function HeroSection({ lampOn }: { lampOn: boolean }) {
   return (
     <div className="relative min-h-screen w-full bg-black text-white overflow-x-hidden snap-start flex items-center justify-center pb-[10%]">
       {/* Lamp graphics */}
@@ -67,13 +63,13 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
     'Penetration Testing':
       "I use the skills I've acquired in countless CTF competitions to identify security flaws in web apps, APIs, and infrastructure to protect everyday Australians",
     Infrastructure:
-      'I enjoy setting up hardware/cloud infra to host projects that provide QOL improvements for myself and others',
+      'I enjoy setting up hardware/cloud infra to host projects that provide QOL improvements for myself and others. I have hosted infra for CTFs competitions on CTFd on bare metal and maintain a multi-use homelab',
     Programming: (
       <>
         I'm a CS student at UNSW and enjoy full stack dev (minus the frontend
         part) - checkout my latest project{' '}
         <a
-          href="https://secsock.secso.cc"
+          href="https://github.com/unswsecsoc/SecSock"
           target="_blank"
           rel="noopener noreferrer"
           className="text-emerald-400 underline hover:text-emerald-300"
@@ -233,7 +229,7 @@ function App() {
   return (
     <div className="bg-black text-white overflow-x-hidden relative">
       {/* <LightBulb lampOn={lampOn}/> */}
-    <LightBulb lampOn={lampOn} width={500} height={32} />
+      <LightBulb lampOn={lampOn} width={500} height={32} />
       {/* <Lightbulb3d /> */}
       {/* Drawstring Cord */}
       <div className="fixed top-0 right-0 z-30">
@@ -249,7 +245,6 @@ function App() {
       />
       <HeroSection lampOn={lampOn} />
       <AboutSection lampOn={lampOn} />
-      {/* <ImageCarousel /> */}
       <ImageCarousel
         images={[
           '/secsoc1.jpg',

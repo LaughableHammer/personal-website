@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 type ImageCarouselProps = {
   images: string[];
@@ -90,58 +90,60 @@ export default function ImageCarousel({
   return (
     <section
       className={`w-full min-h-screen flex flex-col items-center justify-center transition-all duration-1000 ${
-        lightOn ? "brightness-100" : "brightness-20"
+        lightOn ? 'brightness-100' : 'brightness-20'
       }`}
     >
-      <div
-        ref={containerRef}
-        className="relative w-full max-w-5xl overflow-hidden rounded-2xl shadow-xl cursor-pointer"
-        onClick={handleClick}
-        onTouchEnd={handleTouchEnd}
-        role="region"
-        aria-roledescription="image carousel"
-        aria-label="Image carousel - click left or right to navigate"
-      >
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-black -z-10 flex flex-col items-center justify-center">
         <div
-          className="flex transition-transform duration-1000 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          ref={containerRef}
+          className="relative w-full max-w-5xl overflow-hidden rounded-2xl shadow-xl cursor-pointer"
+          onClick={handleClick}
+          onTouchEnd={handleTouchEnd}
+          role="region"
+          aria-roledescription="image carousel"
+          aria-label="Image carousel - click left or right to navigate"
         >
-          {images.map((src, idx) => (
-            <img
-              key={idx}
-              src={src}
-              alt={`Slide ${idx + 1}`}
-              className="w-full flex-shrink-0 object-cover"
-              draggable={false}
+          <div
+            className="flex transition-transform duration-1000 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {images.map((src, idx) => (
+              <img
+                key={idx}
+                src={src}
+                alt={`Slide ${idx + 1}`}
+                className="w-full flex-shrink-0 object-cover"
+                draggable={false}
+              />
+            ))}
+          </div>
+
+          {/* Optional: small overlay indicators to hint where to click */}
+          <div className="pointer-events-none absolute inset-0 flex">
+            <div className="w-1/3" />
+            <div className="w-1/3 flex items-center justify-center">
+              {/* center area left empty */}
+            </div>
+            <div className="w-1/3" />
+          </div>
+        </div>
+
+        {/* dots for visual feedback */}
+        <div className="flex gap-2 mt-6">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setCurrentIndex(i);
+                startAutoplay();
+              }}
+              className={`w-3 h-3 rounded-full transition-all ${
+                i === currentIndex ? 'bg-emerald-400 scale-110' : 'bg-slate-600'
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
             />
           ))}
         </div>
-
-        {/* Optional: small overlay indicators to hint where to click */}
-        <div className="pointer-events-none absolute inset-0 flex">
-          <div className="w-1/3" />
-          <div className="w-1/3 flex items-center justify-center">
-            {/* center area left empty */}
-          </div>
-          <div className="w-1/3" />
-        </div>
-      </div>
-
-      {/* dots for visual feedback */}
-      <div className="flex gap-2 mt-6">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              setCurrentIndex(i);
-              startAutoplay();
-            }}
-            className={`w-3 h-3 rounded-full transition-all ${
-              i === currentIndex ? "bg-emerald-400 scale-110" : "bg-slate-600"
-            }`}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
       </div>
     </section>
   );
