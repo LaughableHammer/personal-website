@@ -40,7 +40,7 @@ export const LampContainer = ({
         {/* Core glow */}
         <motion.div
           animate={{ opacity: lampOn ? 0.5 : 0 }}
-          className="absolute inset-auto z-20 h-36 w-[28rem] -translate-y-1/2 rounded-full bg-cyan-500 blur-3xl"
+          className="absolute inset-auto `z-`20 h-36 w-[28rem] -translate-y-1/2 rounded-full bg-cyan-500 blur-3xl"
         />
 
         {/* Inner highlight */}

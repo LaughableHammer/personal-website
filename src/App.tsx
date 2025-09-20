@@ -175,6 +175,23 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
 
             <div className="grid grid-cols-2 gap-4">
               {Object.keys(skillDetails).map((skill) => (
+                <motion.button
+                  key={skill}
+                  onClick={() => setActiveSkill(skill)}
+                  whileTap={{ scale: 0.95 }} // tap animation for mobile
+                  className="bg-slate-900/60 backdrop-blur-md rounded-lg p-4 border border-slate-700/50 
+                            hover:scale-105 hover:border-emerald-400/50 
+                            hover:shadow-lg hover:shadow-emerald-500/10 
+                            transition-all cursor-pointer w-full text-left focus:outline-none"
+                >
+                  <span className="text-emerald-400 font-medium">{skill}</span>
+                </motion.button>
+              ))}
+            </div>
+
+
+            {/* <div className="grid grid-cols-2 gap-4">
+              {Object.keys(skillDetails).map((skill) => (
                 <motion.div
                   key={skill}
                   className="bg-slate-900/60 backdrop-blur-md rounded-lg p-4 border border-slate-700/50 
@@ -186,7 +203,7 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
                   <span className="text-emerald-400 font-medium">{skill}</span>
                 </motion.div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </motion.div>
@@ -234,9 +251,7 @@ function App() {
 
   return (
     <div className="bg-black text-white overflow-x-hidden relative">
-      {/* <LightBulb lampOn={lampOn}/> */}
-      <LightBulb lampOn={lampOn} width={500} height={32} />
-      {/* <Lightbulb3d /> */}
+      <LightBulb lampOn={lampOn} height={32} />
       {/* Drawstring Cord */}
       <div className="fixed top-0 right-0 z-30">
         <DrawstringCord onToggle={() => setLampOn(!lampOn)} />
