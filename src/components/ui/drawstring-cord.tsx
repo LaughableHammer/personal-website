@@ -6,7 +6,7 @@ type Props = {
   onToggle: () => void;
 };
 
-export default function FakeRopeCord({ onToggle }: Props) {
+export default function DrawstringCord({ onToggle }: Props) {
   const [pulled, setPulled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);

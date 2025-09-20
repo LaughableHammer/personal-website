@@ -14,7 +14,7 @@ function Competitions() {
     { name: 'DUCTF 2022', result: '387 / 1938 — Team: Laughable-Duck' },
     {
       name: 'CyberTaipan - Australian Youth Cyber Defence Competition 2023',
-      result: '🥇 1 / ~160 | Won $1000 — Team: The Kernel Krushers',
+      result: '🥇 1 / ~160 | Won $5000 — Team: The Kernel Krushers',
     },
     { name: 'DUCTF 2024', result: '234 / 1515 — Team: The Kernel Krushers' },
     { name: 'DamCTF 2024', result: '62 / 207 — Team: P4$$word123' },

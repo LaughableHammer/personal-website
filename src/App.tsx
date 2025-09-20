@@ -7,21 +7,15 @@ import TypewriterCycle from './components/ui/typewriter-effect';
 import DrawstringCord from './components/ui/drawstring-cord';
 import { PixelatedCanvas } from './components/ui/pixelated-canvas';
 import ImageCarousel from './components/ui/image-carousel';
+import LightBulb from './components/ui/lightbulb';
 
 function HeroSection({
   lampOn,
-  onToggle,
 }: {
   lampOn: boolean;
-  onToggle: () => void;
 }) {
   return (
     <div className="relative min-h-screen w-full bg-black text-white overflow-x-hidden snap-start flex items-center justify-center pb-[10%]">
-      {/* Drawstring Cord */}
-      <div className="fixed top-0 right-0 z-30">
-        <DrawstringCord onToggle={onToggle} />
-      </div>
-
       {/* Lamp graphics */}
       <div className="fixed top-0 left-0 w-full z-10 pointer-events-none">
         <LampContainer lampOn={lampOn} />
@@ -32,7 +26,7 @@ function HeroSection({
         <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
           {/* Text */}
           <motion.div
-            animate={{ opacity: lampOn ? 1 : 0.25 }}
+            animate={{ opacity: lampOn ? 1 : 0.1 }}
             transition={{ duration: 0.5 }}
             className="w-full md:w-1/2 text-center md:text-left space-y-6"
           >
@@ -45,7 +39,7 @@ function HeroSection({
 
           {/* Avatar */}
           <motion.div
-            animate={{ opacity: lampOn ? 1 : 0.25 }}
+            animate={{ opacity: lampOn ? 1 : 0.1 }}
             transition={{ duration: 0.5 }}
             className="relative w-full md:w-1/2 flex justify-center mt-12 md:mt-0"
           >
@@ -95,12 +89,12 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
   return (
     <section
       className="min-h-screen snap-start flex justify-center items-center relative px-6 sm:px-12 py-16 
-                 bg-gradient-to-b from-black via-slate-900 to-slate-950 overflow-hidden"
+                 bg-gradient-to-b from-black via-slate-1000 to-slate-950 overflow-hidden"
     >
       <motion.div
         className="max-w-7xl w-full flex flex-col lg:flex-row items-center gap-12"
         initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: lampOn ? 1 : 0.25, y: 0 }}
+        whileInView={{ opacity: lampOn ? 1 : 0.1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 1, ease: 'easeOut' }}
       >
@@ -238,6 +232,13 @@ function App() {
 
   return (
     <div className="bg-black text-white overflow-x-hidden relative">
+      {/* <LightBulb lampOn={lampOn}/> */}
+    <LightBulb lampOn={lampOn} width={500} height={32} />
+      {/* <Lightbulb3d /> */}
+      {/* Drawstring Cord */}
+      <div className="fixed top-0 right-0 z-30">
+        <DrawstringCord onToggle={() => setLampOn(!lampOn)} />
+      </div>
       {/* Global lamp glow overlay */}
       <motion.div
         animate={{ opacity: lampOn ? 1 : 0 }}
@@ -246,7 +247,7 @@ function App() {
                    bg-gradient-to-b from-cyan-900/40 via-cyan-800/20 to-transparent 
                    z-0 pointer-events-none"
       />
-      <HeroSection lampOn={lampOn} onToggle={() => setLampOn(!lampOn)} />
+      <HeroSection lampOn={lampOn} />
       <AboutSection lampOn={lampOn} />
       {/* <ImageCarousel /> */}
       <ImageCarousel
