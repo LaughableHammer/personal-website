@@ -559,3 +559,5 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
     />
   );
 };
+
+export default PixelatedCanvas;

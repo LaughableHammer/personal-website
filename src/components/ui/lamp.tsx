@@ -58,3 +58,5 @@ export const LampContainer = ({
     </div>
   );
 };
+
+export default LampContainer;

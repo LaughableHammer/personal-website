@@ -1,13 +1,17 @@
 'use client';
 import { useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
+import { lazy, Suspense } from "react";
 import './App.css';
 import { LampContainer } from './components/ui/lamp';
 import TypewriterCycle from './components/ui/typewriter-effect';
 import DrawstringCord from './components/ui/drawstring-cord';
-import { PixelatedCanvas } from './components/ui/pixelated-canvas';
-import ImageCarousel from './components/ui/image-carousel';
+// import { PixelatedCanvas } from './components/ui/pixelated-canvas';
+const PixelatedCanvas = lazy(() => import("./components/ui/pixelated-canvas"));
+const ImageCarousel = lazy(() => import("./components/ui/image-carousel"));
 import LightBulb from './components/ui/lightbulb';
+
+
 
 function HeroSection({ lampOn }: { lampOn: boolean }) {
   return (
@@ -108,30 +112,32 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
                   className="rounded-xl border border-neutral-800 shadow-lg"
                 />
               ) : (
-                <div className="flex flex-col items-center space-y-4">
-                  <PixelatedCanvas
-                    src="/cool_image.jpg"
-                    width={450}
-                    height={650}
-                    cellSize={1}
-                    dotScale={0.9}
-                    shape="square"
-                    backgroundColor="#000000"
-                    dropoutStrength={0.4}
-                    interactive
-                    distortionStrength={3}
-                    distortionRadius={80}
-                    distortionMode="swirl"
-                    followSpeed={0.2}
-                    jitterStrength={4}
-                    jitterSpeed={4}
-                    sampleAverage
-                    tintColor="#FFFFFF"
-                    tintStrength={0.2}
-                    className="rounded-xl border border-neutral-800 shadow-lg"
-                  />
-                  is your cpu feeling it yet 😈
-                </div>
+                <Suspense fallback={<div>Loading canvas...</div>}> 
+                  <div className="flex flex-col items-center space-y-4">
+                    <PixelatedCanvas
+                      src="/cool_image.jpg"
+                      width={450}
+                      height={650}
+                      cellSize={1}
+                      dotScale={0.9}
+                      shape="square"
+                      backgroundColor="#000000"
+                      dropoutStrength={0.4}
+                      interactive
+                      distortionStrength={3}
+                      distortionRadius={80}
+                      distortionMode="swirl"
+                      followSpeed={0.2}
+                      jitterStrength={4}
+                      jitterSpeed={4}
+                      sampleAverage
+                      tintColor="#FFFFFF"
+                      tintStrength={0.2}
+                      className="rounded-xl border border-neutral-800 shadow-lg"
+                    />
+                    is your cpu feeling it yet 😈
+                  </div>
+                </Suspense>
               )}
             </div>
 
@@ -245,17 +251,18 @@ function App() {
       />
       <HeroSection lampOn={lampOn} />
       <AboutSection lampOn={lampOn} />
-      <ImageCarousel
+      <Suspense fallback={<div className="h-64 flex items-center justify-center text-slate-500">Loading gallery...</div>}>
+        <ImageCarousel
         images={[
-          '/secsoc1.jpg',
-          '/secsoc2.jpg',
-          '/secsoc3.jpg',
-          '/secsoc4.jpg',
-          '/secsoc5.jpg',
+          '/secsoc1.webp',
+          '/secsoc2.webp',
+          '/secsoc3.webp',
+          '/secsoc4.webp',
+          '/secsoc5.webp',
         ]}
         lightOn={lampOn}
-      />
-
+        />
+      </Suspense>
       {/* Progress bar */}
       <motion.div
         className="fixed left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-blue-500 bottom-0 z-50 rounded-sm origin-left"
