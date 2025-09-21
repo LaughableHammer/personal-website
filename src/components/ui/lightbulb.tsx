@@ -88,11 +88,8 @@ export default function LightBulb({
             <stop offset="100%" stopColor="#6b7280" />
           </linearGradient>
           <linearGradient id="tubeGlowLinear" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0" />
-            <stop offset="5%" stopColor="#e0f7ff" stopOpacity="0.3" />
-            <stop offset="50%" stopColor="#ffffff" stopOpacity="1" />
-            <stop offset="95%" stopColor="#e0f7ff" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
+            <stop offset="0%" stopColor="#e0f7ff" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#e0f7ff" stopOpacity="0.8" />
           </linearGradient>
         </defs>
 
@@ -132,8 +129,8 @@ export default function LightBulb({
         />
 
         {/* End caps */}
-        <rect x="23" y="0" width="8" height="25" rx="2" fill="url(#metal)" />
-        <rect x="448" y="0" width="8" height="25" rx="2" fill="url(#metal)" />
+        <rect x="18" y="0" width="16" height="25" rx="2" fill="url(#metal)" />
+        <rect x="448" y="0" width="16" height="25" rx="2" fill="url(#metal)" />
       </svg>
     </div>
   );
