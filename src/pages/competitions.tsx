@@ -37,6 +37,11 @@ function Competitions() {
       result:
         '🥉 3 / 20 | Won $10, RPi Pico, clear lockpicking lock — Team: ecorp',
     },
+    {
+      name: 'K17 CTF 2025',
+      result:
+        ' 229 / 972 — Team: king of hacking',
+    },
   ];
 
   const codingComps = [

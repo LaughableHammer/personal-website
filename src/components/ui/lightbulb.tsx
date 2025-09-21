@@ -99,9 +99,9 @@ export default function LightBulb({
         {/* Glow layer */}
         <motion.rect
           x="20"
-          y="0"
+          y="9"
           width="440"
-          height="32"
+          height="16"
           fill="url(#tubeGlowLinear)"
           initial={{ opacity: 0 }}
           animate={{ opacity: lampOn ? [0, 1, 0.6, 1, 0.9, 1] : 0 }}
@@ -114,7 +114,7 @@ export default function LightBulb({
         {/* Glass */}
         <rect
           x="30"
-          y="8"
+          y="10"
           width="420"
           height="16"
           rx="8"
@@ -132,8 +132,8 @@ export default function LightBulb({
         />
 
         {/* End caps */}
-        <rect x="20" y="6" width="12" height="20" rx="2" fill="url(#metal)" />
-        <rect x="448" y="6" width="12" height="20" rx="2" fill="url(#metal)" />
+        <rect x="23" y="0" width="8" height="25" rx="2" fill="url(#metal)" />
+        <rect x="448" y="0" width="8" height="25" rx="2" fill="url(#metal)" />
       </svg>
     </div>
   );
