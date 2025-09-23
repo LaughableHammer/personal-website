@@ -12,9 +12,9 @@ export default function LightBulb({
     <div
       className="fixed top-0 left-1/2 -translate-x-1/2 z-[1000] overflow-visible"
       style={{
-        width: '70vw',          // take most of screen width
-        maxWidth: '640px',      // cap size on large screens
-        height: 10,// Math.max(height + 400, 600), // large glow container
+        width: '70vw', // take most of screen width
+        maxWidth: '640px', // cap size on large screens
+        height: 10, // Math.max(height + 400, 600), // large glow container
       }}
     >
       {/* Circular glow effect */}
@@ -22,12 +22,8 @@ export default function LightBulb({
         className="fixed top-8 left-1/2 -translate-x-1/2 pointer-events-none z-[999]"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{
-          opacity: lampOn
-            ? [0, 0.3, 0.15, 0.4, 0.25, 0.35, 0.3]
-            : 0,
-          scale: lampOn
-            ? [0.5, 1.2, 1, 1.3, 1.1, 1.25, 1.2]
-            : 0.5,
+          opacity: lampOn ? [0, 0.3, 0.15, 0.4, 0.25, 0.35, 0.3] : 0,
+          scale: lampOn ? [0.5, 1.2, 1, 1.3, 1.1, 1.25, 1.2] : 0.5,
         }}
         transition={{
           duration: lampOn ? 2.5 : 0.6,
@@ -129,7 +125,7 @@ export default function LightBulb({
         />
 
         {/* End caps */}
-        <rect x="18" y="0" width="16" height="25" rx="2" fill="url(#metal)" />
+        <rect x="16" y="0" width="16" height="25" rx="2" fill="url(#metal)" />
         <rect x="448" y="0" width="16" height="25" rx="2" fill="url(#metal)" />
       </svg>
     </div>

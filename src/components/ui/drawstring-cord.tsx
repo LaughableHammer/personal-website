@@ -76,7 +76,11 @@ export default function DrawstringCord({ onToggle }: Props) {
         return (
           <motion.div
             key={i}
-            style={{ x: segmentSwayX, y: segmentSwayY, transformOrigin: 'top center' }}
+            style={{
+              x: segmentSwayX,
+              y: segmentSwayY,
+              transformOrigin: 'top center',
+            }}
             animate={{ y: pulled ? i * 3 : 0 }}
             transition={{
               delay: i * 0.02,
@@ -100,7 +104,10 @@ export default function DrawstringCord({ onToggle }: Props) {
       <motion.div
         style={{ x: swayX, y: swayY }}
         animate={{ y: pulled ? 30 : 0, scale: isHovered ? 1.1 : 1 }}
-        whileHover={{ scale: 1.15, boxShadow: '0 4px 20px rgba(217, 119, 6, 0.3)' }}
+        whileHover={{
+          scale: 1.15,
+          boxShadow: '0 4px 20px rgba(217, 119, 6, 0.3)',
+        }}
         whileTap={{ scale: 0.95, y: 5 }}
         transition={{ type: 'spring', stiffness: 200, damping: 15 }}
         className={`relative w-6 h-6 rounded-full 
@@ -126,7 +133,7 @@ export default function DrawstringCord({ onToggle }: Props) {
           >
             ⤹
           </motion.div>
-          <span className="animate-pulse">Pull here</span>
+          <span className="animate-pulse">Click here</span>
         </motion.div>
       )}
     </div>

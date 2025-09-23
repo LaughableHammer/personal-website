@@ -9,7 +9,7 @@ type ImageCarouselProps = {
 export default function ImageCarousel({
   images,
   lightOn,
-  interval = 3000,
+  interval = 5000,
 }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const autoplayRef = useRef<number | null>(null);

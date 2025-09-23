@@ -39,8 +39,7 @@ function Competitions() {
     },
     {
       name: 'K17 CTF 2025',
-      result:
-        ' 229 / 972 — Team: king of hacking',
+      result: ' 229 / 972 — Team: king of hacking',
     },
   ];
 

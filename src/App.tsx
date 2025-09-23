@@ -1,19 +1,27 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
-import { lazy, Suspense } from "react";
+import { lazy, Suspense } from 'react';
 import './App.css';
 import { LampContainer } from './components/ui/lamp';
 import TypewriterCycle from './components/ui/typewriter-effect';
 import DrawstringCord from './components/ui/drawstring-cord';
-// import { PixelatedCanvas } from './components/ui/pixelated-canvas';
-const PixelatedCanvas = lazy(() => import("./components/ui/pixelated-canvas"));
-const ImageCarousel = lazy(() => import("./components/ui/image-carousel"));
+const PixelatedCanvas = lazy(() => import('./components/ui/pixelated-canvas'));
+const ImageCarousel = lazy(() => import('./components/ui/image-carousel'));
 import LightBulb from './components/ui/lightbulb';
 
-
-
 function HeroSection({ lampOn }: { lampOn: boolean }) {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50 && !hasScrolled) {
+        setHasScrolled(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasScrolled]);
   return (
     <div className="relative min-h-screen w-full bg-black text-white overflow-x-hidden snap-start flex items-center justify-center pb-[10%]">
       {/* Lamp graphics */}
@@ -55,6 +63,37 @@ function HeroSection({ lampOn }: { lampOn: boolean }) {
           </motion.div>
         </div>
       </div>
+
+      {/* Scroll Down Indicator */}
+      {!hasScrolled && (
+        <motion.div
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-slate-400 text-sm flex flex-col items-center space-y-1"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 0.8, y: [0, 6, 0] }}
+          transition={{
+            delay: 1.5,
+            duration: 1.5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        >
+          <span className="animate-pulse">Scroll down</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </motion.div>
+      )}
     </div>
   );
 }
@@ -112,7 +151,7 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
                   className="rounded-xl border border-neutral-800 shadow-lg"
                 />
               ) : (
-                <Suspense fallback={<div>Loading canvas...</div>}> 
+                <Suspense fallback={<div>Loading canvas...</div>}>
                   <div className="flex flex-col items-center space-y-4">
                     <PixelatedCanvas
                       src="/cool_image.jpg"
@@ -188,22 +227,6 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
                 </motion.button>
               ))}
             </div>
-
-
-            {/* <div className="grid grid-cols-2 gap-4">
-              {Object.keys(skillDetails).map((skill) => (
-                <motion.div
-                  key={skill}
-                  className="bg-slate-900/60 backdrop-blur-md rounded-lg p-4 border border-slate-700/50 
-                             hover:scale-105 hover:border-emerald-400/50 
-                             hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-pointer"
-                  whileHover={{ y: -3 }}
-                  onClick={() => setActiveSkill(skill)}
-                >
-                  <span className="text-emerald-400 font-medium">{skill}</span>
-                </motion.div>
-              ))}
-            </div> */}
           </div>
         </div>
       </motion.div>
@@ -240,6 +263,54 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
   );
 }
 
+function ExecPlansSection({ lampOn }: { lampOn: boolean }) {
+  const plans = [
+    'Deliver course-relevant resources earlier — like updated COMP6841 and COMP6447 revision docs each year so SecSoc can once again become the hub for security at UNSW',
+    'Expedite hoodie orders so they actually arrive in winter (cozy, not sweaty).',
+    'Tighter organisation around events so members can plan their schedules with confidence.',
+    'Collaborate with sponsors to host events both on campus and at their offices — because who doesn’t want a foot in the door?',
+  ];
+
+  return (
+    <section
+      className="min-h-screen snap-start flex justify-center items-center relative px-6 sm:px-12 py-24
+                 bg-gradient-to-b from-black via-slate-950 to-slate-900 overflow-hidden"
+    >
+      <motion.div
+        className="max-w-4xl text-center space-y-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: lampOn ? 1 : 0.1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 1, ease: 'easeOut' }}
+      >
+        <h2
+          className="text-4xl lg:text-5xl font-bold 
+                     bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400
+                     bg-clip-text text-transparent leading-tight"
+        >
+          If I Become Exec
+        </h2>
+
+        <ul className="space-y-6 text-lg text-slate-300 leading-relaxed text-left mx-auto max-w-2xl">
+          {plans.map((plan, idx) => (
+            <motion.li
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              className="flex items-start"
+            >
+              <span className="text-emerald-400 mr-3">•</span>
+              <span>{plan}</span>
+            </motion.li>
+          ))}
+        </ul>
+      </motion.div>
+    </section>
+  );
+}
+
 function App() {
   const [lampOn, setLampOn] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -266,18 +337,25 @@ function App() {
       />
       <HeroSection lampOn={lampOn} />
       <AboutSection lampOn={lampOn} />
-      <Suspense fallback={<div className="h-64 flex items-center justify-center text-slate-500">Loading gallery...</div>}>
+      <Suspense
+        fallback={
+          <div className="h-64 flex items-center justify-center text-slate-500">
+            Loading gallery...
+          </div>
+        }
+      >
         <ImageCarousel
-        images={[
-          '/secsoc1.webp',
-          '/secsoc2.webp',
-          '/secsoc3.webp',
-          '/secsoc4.webp',
-          '/secsoc5.webp',
-        ]}
-        lightOn={lampOn}
+          images={[
+            '/secsoc1.webp',
+            '/secsoc2.webp',
+            '/secsoc3.webp',
+            '/secsoc4.webp',
+            '/secsoc5.webp',
+          ]}
+          lightOn={lampOn}
         />
       </Suspense>
+      <ExecPlansSection lampOn={lampOn} />
       {/* Progress bar */}
       <motion.div
         className="fixed left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-blue-500 bottom-0 z-50 rounded-sm origin-left"

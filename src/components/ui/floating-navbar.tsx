@@ -50,11 +50,15 @@ const FloatingNav = ({
 
   useMotionValueEvent(scrollYProgress, 'change', (current) => {
     if (typeof current === 'number') {
-      let direction = current! - scrollYProgress.getPrevious()!;
-      if (scrollYProgress.get() < 0.05) {
+      let direction = current - scrollYProgress.getPrevious()!;
+      const progress = scrollYProgress.get();
+
+      // Show sooner (after just 1% scroll), 
+      // and always show once user is past 15% regardless of direction
+      if (progress < 0.01) {
         setVisible(false);
       } else {
-        setVisible(direction < 0);
+        setVisible(direction < 0 || progress > 0.15);
       }
     }
   });
@@ -66,7 +70,6 @@ const FloatingNav = ({
         animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
         className={cn(
-          // moved lower with top-14
           'flex max-w-fit fixed top-14 inset-x-0 mx-auto z-[5000] px-6 py-3 items-center justify-center space-x-6',
           'rounded-full backdrop-blur-md border border-emerald-400/30 shadow-lg shadow-emerald-500/10',
           'bg-slate-900/80 text-slate-200',
@@ -82,10 +85,8 @@ const FloatingNav = ({
               'hover:text-emerald-300',
             )}
           >
-            {/* Always show icon on mobile, show text on md+ */}
             <span className="block">{navItem.icon}</span>
             <span className="hidden md:block">{navItem.name}</span>
-            {/* glowing underline on hover */}
             <span className="absolute -bottom-1 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 origin-left bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 transition-transform" />
           </a>
         ))}
