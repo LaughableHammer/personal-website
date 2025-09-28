@@ -121,7 +121,7 @@ export default function DrawstringCord({ onToggle }: Props) {
       {/* Hint arrow + text */}
       {showHint && (
         <motion.div
-          className="absolute top-12 right-12 flex flex-col items-center text-emerald-300 text-sm font-medium pointer-events-none"
+          className="absolute top-12 right-5 flex flex-col items-center text-emerald-300 text-sm font-medium pointer-events-none"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
