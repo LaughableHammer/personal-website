@@ -266,9 +266,9 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
 function ExecPlansSection({ lampOn }: { lampOn: boolean }) {
   const plans = [
     'Deliver course-relevant resources earlier — like updated COMP6841 and COMP6447 revision docs each year so SecSoc can once again become the hub for security at UNSW',
-    'Expedite hoodie orders so they actually arrive in winter (cozy, not sweaty).',
-    'Tighter organisation around events so members can plan their schedules with confidence.',
-    'Collaborate with sponsors to host events both on campus and at their offices — because who doesn’t want a foot in the door?',
+    'Expedite hoodie orders so they actually arrive in winter',
+    'Tighter organisation around events so members can plan their schedules with confidence',
+    'Collaborate with sponsors and my connections to host events both on campus and at their offices because who doesn’t want a foot in the door',
   ];
 
   return (
