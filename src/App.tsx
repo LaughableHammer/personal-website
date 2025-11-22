@@ -6,7 +6,6 @@ import './App.css';
 import { LampContainer } from './components/ui/lamp';
 import TypewriterCycle from './components/ui/typewriter-effect';
 import DrawstringCord from './components/ui/drawstring-cord';
-const PixelatedCanvas = lazy(() => import('./components/ui/pixelated-canvas'));
 const ImageCarousel = lazy(() => import('./components/ui/image-carousel'));
 import LightBulb from './components/ui/lightbulb';
 
@@ -41,7 +40,7 @@ function HeroSection({ lampOn }: { lampOn: boolean }) {
             <TypewriterCycle />
             <p className="text-lg md:text-xl text-slate-400">
               Part-time penetration tester for the Australian Government and
-              full-time fan of the UNSW Security Society
+              full-time Computer Science student at UNSW Sydney.
             </p>
           </motion.div>
 
@@ -99,20 +98,19 @@ function HeroSection({ lampOn }: { lampOn: boolean }) {
 }
 
 function AboutSection({ lampOn }: { lampOn: boolean }) {
-  const [pixelated, setPixelated] = useState(false);
   const [activeSkill, setActiveSkill] = useState<string | null>(null);
 
   const skillDetails: Record<string, React.ReactNode> = {
     'Penetration Testing':
-      "I use the skills I've acquired in countless CTF competitions to identify security flaws in web apps, APIs, and infrastructure to protect everyday Australians",
+      "I use the skills I've acquired playing in many CTF competitions to identify security flaws in web apps, APIs, and infrastructure as part of my job",
     Infrastructure:
-      'I enjoy setting up hardware/cloud infra to host projects that provide QOL improvements for myself and others. I have hosted infra for CTFs competitions on CTFd on bare metal and maintain a multi-use homelab',
+      'I enjoy setting up hardware/cloud infra to host projects that provide QoL improvements for myself and others. I have hosted infra for CTFs competitions on CTFd on bare metal and maintain a multi-use homelab',
     Programming: (
       <>
         I'm a CS student at UNSW and enjoy full stack dev (minus the frontend
         part) - checkout my latest project{' '}
         <a
-          href="https://github.com/unswsecsoc/SecSock"
+          href="https://secsock.secso.cc/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-emerald-400 underline hover:text-emerald-300"
@@ -128,7 +126,7 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
   return (
     <section
       className="min-h-screen snap-start flex justify-center items-center relative px-6 sm:px-12 py-16 
-                 bg-gradient-to-b from-black via-slate-1000 to-slate-950 overflow-hidden"
+                 bg-gradient-to-b from-black via-slate-1000 to-slate-1000 overflow-hidden"
     >
       <motion.div
         className="max-w-7xl w-full flex flex-col lg:flex-row items-center gap-12"
@@ -139,51 +137,10 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
       >
         {/* Left: Image */}
         <div className="w-full lg:w-1/2 flex justify-center">
-          <div className="relative w-full max-w-sm lg:max-w-md">
-            <div
-              className="mx-auto mt-8 cursor-pointer transition-transform hover:scale-105"
-              onClick={() => setPixelated(!pixelated)}
-            >
-              {!pixelated ? (
-                <img
-                  src="/cool_image.jpg"
-                  alt="Normal"
-                  className="rounded-xl border border-neutral-800 shadow-lg"
-                />
-              ) : (
-                <Suspense fallback={<div>Loading canvas...</div>}>
-                  <div className="flex flex-col items-center space-y-4">
-                    <PixelatedCanvas
-                      src="/cool_image.jpg"
-                      width={450}
-                      height={650}
-                      cellSize={1}
-                      dotScale={0.9}
-                      shape="square"
-                      backgroundColor="#000000"
-                      dropoutStrength={0.4}
-                      interactive
-                      distortionStrength={3}
-                      distortionRadius={80}
-                      distortionMode="swirl"
-                      followSpeed={0.2}
-                      jitterStrength={4}
-                      jitterSpeed={4}
-                      sampleAverage
-                      tintColor="#FFFFFF"
-                      tintStrength={0.2}
-                      className="rounded-xl border border-neutral-800 shadow-lg"
-                    />
-                    is your cpu feeling it yet 😈
-                  </div>
-                </Suspense>
-              )}
-            </div>
-
-            {/* Glows */}
-            <div className="absolute -top-6 -right-6 w-28 h-28 bg-emerald-500/20 rounded-full blur-2xl" />
-            <div className="absolute -bottom-10 -left-8 w-36 h-36 bg-cyan-500/10 rounded-full blur-3xl" />
-          </div>
+          <img
+            src="/main_image.png"
+            alt="Image of Kushaagra"
+          />
         </div>
 
         {/* Right: Text */}
@@ -199,15 +156,25 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
 
             <div className="space-y-5 text-lg leading-relaxed text-slate-300">
               <p>
-                I'm the current director of Projects at UNSW SecSoc and before
-                that I was in the Projects subcommittee.
+                I'm a 2nd year Computer Science student at UNSW, majoring in Security Engineering.
               </p>
               <p>
-                Alongside uni, I'm a penetration tester at Services Australia,
+                As a second time projects director at the UNSW Security Society, I'm involved with recruiting and leading subcommittee to build projects that improve technical ability and also have an impact on the security community at UNSW.
+              </p>
+              <p>
+                Alongside I'm a part-time penetration tester at Services Australia,
                 focusing primarily on web app security.
               </p>
               <p>
-                When I'm not doing security, you'll find me meddling with my
+                When I'm not doing security, you'll find me fixing PCs at {' '}
+        <a
+          href="https://www.arc.unsw.edu.au/community/ereuse"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-emerald-400 underline hover:text-emerald-300"
+        >
+          eReuse
+        </a>, meddling with my
                 homelab or playing car soccer.
               </p>
             </div>
@@ -263,53 +230,50 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
   );
 }
 
-function ExecPlansSection({ lampOn }: { lampOn: boolean }) {
-  const plans = [
-    'Deliver course-relevant resources earlier — like updated COMP6841 and COMP6447 revision docs each year so SecSoc can once again become the hub for security at UNSW',
-    'Expedite hoodie orders so they actually arrive in winter',
-    'Tighter organisation around events so members can plan their schedules with confidence',
-    'Collaborate with sponsors and my connections to host events both on campus and at their offices because who doesn’t want a foot in the door',
-  ];
-
+function ContactPanel() {
   return (
-    <section
-      className="min-h-screen snap-start flex justify-center items-center relative px-6 sm:px-12 py-24
-                 bg-gradient-to-b from-black via-slate-950 to-slate-900 overflow-hidden"
-    >
-      <motion.div
-        className="max-w-4xl text-center space-y-10"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: lampOn ? 1 : 0.1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
-      >
-        <h2
-          className="text-4xl lg:text-5xl font-bold 
-                     bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400
-                     bg-clip-text text-transparent leading-tight"
-        >
-          If I Become Exec
-        </h2>
+    <div className="w-full lg:w-2/5 flex flex-col items-center space-y-6 mt-6 lg:mt-0">
 
-        <ul className="space-y-6 text-lg text-slate-300 leading-relaxed text-left mx-auto max-w-2xl">
-          {plans.map((plan, idx) => (
-            <motion.li
-              key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="flex items-start"
-            >
-              <span className="text-emerald-400 mr-3">•</span>
-              <span>{plan}</span>
-            </motion.li>
-          ))}
-        </ul>
-      </motion.div>
-    </section>
+      <h2
+        className="text-4xl font-bold 
+                   bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400
+                   bg-clip-text text-transparent"
+      >
+        Find Me
+      </h2>
+
+      {/* Discord */}
+      <a
+        href="https://discord.com/users/421601310522081291"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-4 bg-slate-900/60 backdrop-blur-md 
+                   border border-slate-700/50 rounded-xl px-6 py-4 w-full 
+                   hover:border-emerald-400/50 hover:shadow-lg hover:shadow-emerald-400/20 
+                   transition-all"
+      >
+        <img src="/discord.png" className="w-7 h-7 opacity-90" />
+        <span className="text-lg">Discord</span>
+      </a>
+
+      {/* LinkedIn */}
+      <a
+        href="https://www.linkedin.com/in/kushaagra-k/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-4 bg-slate-900/60 backdrop-blur-md 
+                   border border-slate-700/50 rounded-xl px-6 py-4 w-full 
+                   hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-400/20 
+                   transition-all"
+      >
+        <img src="/linkedin.png" className="w-7 h-7 opacity-90" />
+        <span className="text-lg">LinkedIn</span>
+      </a>
+    </div>
   );
 }
+
+
 
 function App() {
   const [lampOn, setLampOn] = useState(false);
@@ -337,25 +301,31 @@ function App() {
       />
       <HeroSection lampOn={lampOn} />
       <AboutSection lampOn={lampOn} />
-      <Suspense
-        fallback={
-          <div className="h-64 flex items-center justify-center text-slate-500">
-            Loading gallery...
+
+      <section className="min-h-screen flex items-center justify-center px-6 py-24">
+        <div className="flex flex-col lg:flex-row items-start justify-center gap-12 w-full max-w-7xl">
+          
+          {/* LEFT: Carousel */}
+          <div className="w-full lg:w-3/5 flex justify-center">
+            <Suspense fallback={<div>Loading...</div>}>
+              <ImageCarousel
+                images={["/secsoc1.webp", "/ereuse1.jpg"]}
+                lightOn={lampOn}
+                embedMode
+              />
+            </Suspense>
           </div>
-        }
-      >
-        <ImageCarousel
-          images={[
-            '/secsoc1.webp',
-            '/secsoc2.webp',
-            '/secsoc3.webp',
-            '/secsoc4.webp',
-            '/secsoc5.webp',
-          ]}
-          lightOn={lampOn}
-        />
-      </Suspense>
-      <ExecPlansSection lampOn={lampOn} />
+
+          {/* RIGHT: Contact */}
+          <div className="w-full lg:w-2/5">
+            <ContactPanel />
+          </div>
+
+        </div>
+      </section>
+
+
+
       {/* Progress bar */}
       <motion.div
         className="fixed left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-blue-500 bottom-0 z-50 rounded-sm origin-left"
