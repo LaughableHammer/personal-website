@@ -5,9 +5,7 @@ import { lazy, Suspense } from 'react';
 import './App.css';
 import { LampContainer } from './components/ui/lamp';
 import TypewriterCycle from './components/ui/typewriter-effect';
-import DrawstringCord from './components/ui/drawstring-cord';
 const ImageCarousel = lazy(() => import('./components/ui/image-carousel'));
-import LightBulb from './components/ui/lightbulb';
 
 function HeroSection({ lampOn }: { lampOn: boolean }) {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -276,28 +274,21 @@ function ContactPanel() {
 
 
 function App() {
-  const [lampOn, setLampOn] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
+  const lampOn = true;
 
   return (
     <div className="bg-black text-white overflow-x-hidden relative">
-      <LightBulb lampOn={lampOn} height={32} />
-      {/* Drawstring Cord */}
-      <div className="fixed top-0 right-0 z-30">
-        <DrawstringCord onToggle={() => setLampOn(!lampOn)} />
-      </div>
       {/* Global lamp glow overlay */}
-      <motion.div
-        animate={{ opacity: lampOn ? 1 : 0 }}
-        transition={{ duration: 1.2, ease: 'easeInOut' }}
+      <div
         className="fixed top-0 left-0 w-full h-full 
-                   bg-gradient-to-b from-cyan-900/40 via-cyan-800/20 to-transparent 
-                   z-0 pointer-events-none"
+                  bg-gradient-to-b from-cyan-900/40 via-cyan-800/20 to-transparent 
+                  z-0 pointer-events-none opacity-100"
       />
       <HeroSection lampOn={lampOn} />
       <AboutSection lampOn={lampOn} />
