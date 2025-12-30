@@ -133,16 +133,7 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 1, ease: 'easeOut' }}
       >
-        {/* Left: Image */}
-        <div className="w-full lg:w-1/2 flex justify-center">
-          <img
-            src="/main_image.png"
-            alt="Image of Kushaagra"
-          />
-        </div>
-
-        {/* Right: Text */}
-        <div className="w-full lg:w-1/2">
+        <div className="w-full">
           <div className="space-y-8">
             <h2
               className="text-4xl lg:text-5xl font-bold 
@@ -230,44 +221,85 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
 
 function ContactPanel() {
   return (
-    <div className="w-full lg:w-2/5 flex flex-col items-center space-y-6 mt-6 lg:mt-0">
+    <section className="min-h-screen snap-start flex items-center justify-center px-6 sm:px-12 py-16">
+      <div className="w-full max-w-lg flex flex-col items-center space-y-8">
 
-      <h2
-        className="text-4xl font-bold 
-                   bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400
-                   bg-clip-text text-transparent"
-      >
-        Find Me
-      </h2>
+        {/* Title */}
+        <h2
+          className="text-4xl font-bold text-center
+                     bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400
+                     bg-clip-text text-transparent"
+        >
+          Contact Me
+        </h2>
 
-      {/* Discord */}
-      <a
-        href="https://discord.com/users/421601310522081291"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-4 bg-slate-900/60 backdrop-blur-md 
-                   border border-slate-700/50 rounded-xl px-6 py-4 w-full 
-                   hover:border-emerald-400/50 hover:shadow-lg hover:shadow-emerald-400/20 
-                   transition-all"
-      >
-        <img src="/discord.png" className="w-7 h-7 opacity-90" />
-        <span className="text-lg">Discord</span>
-      </a>
+        {/* Row: Discord + GitHub */}
+        <div className="flex gap-4 w-full">
+          {/* Discord */}
+          <a
+            href="https://discord.com/users/421601310522081291"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex items-center justify-center gap-3
+                       bg-slate-900/60 backdrop-blur-md
+                       border border-slate-700/50 rounded-xl
+                       px-6 py-4
+                       hover:border-emerald-400/50
+                       hover:shadow-lg hover:shadow-emerald-400/20
+                       transition-all"
+          >
+            <img src="/discord.png" className="w-6 h-6 opacity-90" />
+            <span className="text-lg">Discord</span>
+          </a>
 
-      {/* LinkedIn */}
-      <a
-        href="https://www.linkedin.com/in/kushaagra-k/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-4 bg-slate-900/60 backdrop-blur-md 
-                   border border-slate-700/50 rounded-xl px-6 py-4 w-full 
-                   hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-400/20 
-                   transition-all"
-      >
-        <img src="/linkedin.png" className="w-7 h-7 opacity-90" />
-        <span className="text-lg">LinkedIn</span>
-      </a>
-    </div>
+          {/* GitHub */}
+          <a
+            href="https://github.com/LaughableHammer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex items-center justify-center gap-3
+                       bg-slate-900/60 backdrop-blur-md
+                       border border-slate-700/50 rounded-xl
+                       px-6 py-4
+                       hover:border-blue-400/50
+                       hover:shadow-lg hover:shadow-blue-400/20
+                       transition-all"
+          >
+            <img src="/github.png" className="w-6 h-6 opacity-90" />
+            <span className="text-lg">GitHub</span>
+          </a>
+        </div>
+
+        {/* Email – full width */}
+        <a
+          href="mailto:laughable.hammer@gmail.com"
+          className="w-full flex items-center justify-center gap-3
+                     bg-slate-900/70 backdrop-blur-md
+                     border border-slate-700/50 rounded-xl
+                     px-6 py-5
+                     hover:border-cyan-400/50
+                     hover:shadow-lg hover:shadow-cyan-400/20
+                     transition-all"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.8}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
+          </svg>
+          <span className="text-lg">Email Me</span>
+        </a>
+
+      </div>
+    </section>
   );
 }
 
@@ -292,29 +324,7 @@ function App() {
       />
       <HeroSection lampOn={lampOn} />
       <AboutSection lampOn={lampOn} />
-
-      <section className="min-h-screen flex items-center justify-center px-6 py-24">
-        <div className="flex flex-col lg:flex-row items-start justify-center gap-12 w-full max-w-7xl">
-          
-          {/* LEFT: Carousel */}
-          <div className="w-full lg:w-3/5 flex justify-center">
-            <Suspense fallback={<div>Loading...</div>}>
-              <ImageCarousel
-                images={["/secsoc1.webp", "/ereuse1.jpg"]}
-                lightOn={lampOn}
-                embedMode
-              />
-            </Suspense>
-          </div>
-
-          {/* RIGHT: Contact */}
-          <div className="w-full lg:w-2/5">
-            <ContactPanel />
-          </div>
-
-        </div>
-      </section>
-
+      <ContactPanel />
 
 
       {/* Progress bar */}
