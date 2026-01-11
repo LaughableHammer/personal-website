@@ -145,10 +145,8 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
 
             <div className="space-y-5 text-lg leading-relaxed text-slate-300">
               <p>
-                I'm a 2nd year Computer Science student at UNSW, majoring in Security Engineering.
-              </p>
-              <p>
-                As a second time projects director at the UNSW Security Society, I'm involved with recruiting and leading subcommittee to build projects that improve technical ability and also have an impact on the security community at UNSW.
+                I'm a Computer Science (Sec. Engineering) student and a director at UNSW SecSoc. 
+                I'm involved with recruiting and leading subcommittee to build projects that improve technical ability and also have an impact on the security community at UNSW.
               </p>
               <p>
                 Alongside I'm a part-time penetration tester at Services Australia,
