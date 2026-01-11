@@ -149,7 +149,7 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
                 I'm involved with recruiting and leading subcommittee to build projects that improve technical ability and also have an impact on the security community at UNSW.
               </p>
               <p>
-                Alongside I'm a part-time penetration tester at Services Australia,
+                Alongside I'm a part-time penetration tester in APS,
                 focusing primarily on web app security.
               </p>
               <p>
