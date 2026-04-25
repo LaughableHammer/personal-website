@@ -7,6 +7,7 @@ import { Layout } from './components/Layout';
 const App = lazy(() => import('./App'));
 const Blog = lazy(() => import('./pages/blog'));
 const Competitions = lazy(() => import('./pages/competitions'));
+const BlogPost = lazy(() => import('./pages/blog/PostPage'));
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <App /> },
       { path: 'blog', element: <Blog /> },
+      { path: 'blog/:slug', element: <BlogPost /> },
       { path: 'comps', element: <Competitions /> },
     ],
   },
@@ -24,6 +26,7 @@ function Root() {
   useEffect(() => {
     const preload = () => {
       import('./pages/blog');
+      import('./pages/blog/PostPage');
       import('./pages/competitions');
     };
     if ('requestIdleCallback' in window) {

@@ -1,0 +1,1 @@
+export type Tag = 'CTF Writeup' | 'CVE' | 'Certification' | 'Education' | 'Project';
