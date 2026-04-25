@@ -1,13 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
-import { lazy, Suspense } from 'react';
 import './App.css';
-import { LampContainer } from './components/ui/lamp';
 import TypewriterCycle from './components/ui/typewriter-effect';
-const ImageCarousel = lazy(() => import('./components/ui/image-carousel'));
 
-function HeroSection({ lampOn }: { lampOn: boolean }) {
+function HeroSection() {
   const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
@@ -21,17 +18,12 @@ function HeroSection({ lampOn }: { lampOn: boolean }) {
   }, [hasScrolled]);
   return (
     <div className="relative min-h-screen w-full bg-black text-white overflow-x-hidden snap-start flex items-center justify-center pb-[10%]">
-      {/* Lamp graphics */}
-      <div className="fixed top-0 left-0 w-full z-10 pointer-events-none">
-        <LampContainer lampOn={lampOn} />
-      </div>
-
       {/* Content */}
       <div className="relative z-20 px-8 w-full">
         <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
           {/* Text */}
           <motion.div
-            animate={{ opacity: lampOn ? 1 : 0.1 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="w-full md:w-1/2 text-center md:text-left space-y-6"
           >
@@ -44,7 +36,7 @@ function HeroSection({ lampOn }: { lampOn: boolean }) {
 
           {/* Avatar */}
           <motion.div
-            animate={{ opacity: lampOn ? 1 : 0.1 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="relative w-full md:w-1/2 flex justify-center mt-12 md:mt-0"
           >
@@ -95,7 +87,7 @@ function HeroSection({ lampOn }: { lampOn: boolean }) {
   );
 }
 
-function AboutSection({ lampOn }: { lampOn: boolean }) {
+function AboutSection() {
   const [activeSkill, setActiveSkill] = useState<string | null>(null);
 
   const skillDetails: Record<string, React.ReactNode> = {
@@ -105,15 +97,14 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
       'I enjoy setting up hardware/cloud infra to host projects that provide QoL improvements for myself and others. I have hosted infra for CTFs competitions on CTFd on bare metal and maintain a multi-use homelab',
     Programming: (
       <>
-        I'm a CS student at UNSW and enjoy full stack dev (minus the frontend
-        part) - checkout my latest project{' '}
+        I'm a CS student at UNSW and enjoy full stack dev, checkout my latest project - {' '}
         <a
-          href="https://secsock.secso.cc/"
+          href="https://github.com/unswsecsoc/UNSW-Discord-Verification-Bot"
           target="_blank"
           rel="noopener noreferrer"
           className="text-emerald-400 underline hover:text-emerald-300"
         >
-          SecSock
+          UNSW Discord Verification Bot
         </a>
       </>
     ),
@@ -129,7 +120,7 @@ function AboutSection({ lampOn }: { lampOn: boolean }) {
       <motion.div
         className="max-w-7xl w-full flex flex-col lg:flex-row items-center gap-12"
         initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: lampOn ? 1 : 0.1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 1, ease: 'easeOut' }}
       >
@@ -302,7 +293,6 @@ function ContactPanel() {
 }
 
 
-
 function App() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -310,20 +300,12 @@ function App() {
     damping: 30,
     restDelta: 0.001,
   });
-  const lampOn = true;
 
   return (
     <div className="bg-black text-white overflow-x-hidden relative">
-      {/* Global lamp glow overlay */}
-      <div
-        className="fixed top-0 left-0 w-full h-full 
-                  bg-gradient-to-b from-cyan-900/40 via-cyan-800/20 to-transparent 
-                  z-0 pointer-events-none opacity-100"
-      />
-      <HeroSection lampOn={lampOn} />
-      <AboutSection lampOn={lampOn} />
+      <HeroSection />
+      <AboutSection />
       <ContactPanel />
-
 
       {/* Progress bar */}
       <motion.div

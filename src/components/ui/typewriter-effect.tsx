@@ -5,18 +5,18 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 export default function TypewriterCycle() {
-  const words = ['LaughableHammer'];
   const [displayed, setDisplayed] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const [pause, setPause] = useState(false);
 
   useEffect(() => {
+    const words = ['LaughableHammer', 'Kushaagra'];
     const currentWord = words[wordIndex];
     let timeout: NodeJS.Timeout;
 
     if (pause) {
-      timeout = setTimeout(() => setPause(false), 10000); // 10 sec pause
+      timeout = setTimeout(() => setPause(false), 5000); // 5 sec pause
     } else {
       timeout = setTimeout(
         () => {

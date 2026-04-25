@@ -1,32 +1,17 @@
 'use client';
 import { useState, type JSX } from 'react';
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from 'motion/react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
+import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Home, Trophy, BookOpen } from 'lucide-react'; // example icons
+import { Home, Trophy, BookOpen } from 'lucide-react';
+
+const navItems = [
+  { name: 'Home',         link: '/',      icon: <Home className="w-5 h-5" /> },
+  { name: 'Competitions', link: '/comps', icon: <Trophy className="w-5 h-5" /> },
+  { name: 'Blog',         link: '/blog',  icon: <BookOpen className="w-5 h-5" /> },
+];
 
 export function Navbar() {
-  const navItems = [
-    {
-      name: 'Home',
-      link: '/',
-      icon: <Home className="w-5 h-5" />,
-    },
-    {
-      name: 'Competitions',
-      link: '/comps',
-      icon: <Trophy className="w-5 h-5" />,
-    },
-    {
-      name: 'Blog',
-      link: '/blog',
-      icon: <BookOpen className="w-5 h-5" />,
-    },
-  ];
   return (
     <div className="relative w-full">
       <FloatingNav navItems={navItems} />
@@ -38,23 +23,17 @@ const FloatingNav = ({
   navItems,
   className,
 }: {
-  navItems: {
-    name: string;
-    link: string;
-    icon?: JSX.Element;
-  }[];
+  navItems: { name: string; link: string; icon?: JSX.Element }[];
   className?: string;
 }) => {
   const { scrollYProgress } = useScroll();
   const [visible, setVisible] = useState(false);
+  const location = useLocation();
 
   useMotionValueEvent(scrollYProgress, 'change', (current) => {
     if (typeof current === 'number') {
-      let direction = current - scrollYProgress.getPrevious()!;
+      const direction = current - scrollYProgress.getPrevious()!;
       const progress = scrollYProgress.get();
-
-      // Show sooner (after just 1% scroll), 
-      // and always show once user is past 15% regardless of direction
       if (progress < 0.01) {
         setVisible(false);
       } else {
@@ -77,18 +56,19 @@ const FloatingNav = ({
         )}
       >
         {navItems.map((navItem, idx) => (
-          <a
+          <Link
             key={`link-${idx}`}
-            href={navItem.link}
+            to={navItem.link}
             className={cn(
               'relative flex items-center gap-2 text-sm font-medium transition-colors duration-200 group',
               'hover:text-emerald-300',
+              location.pathname === navItem.link && 'text-emerald-400',
             )}
           >
             <span className="block">{navItem.icon}</span>
             <span className="hidden md:block">{navItem.name}</span>
             <span className="absolute -bottom-1 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 origin-left bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 transition-transform" />
-          </a>
+          </Link>
         ))}
       </motion.div>
     </AnimatePresence>
