@@ -294,24 +294,12 @@ function ContactPanel() {
 
 
 function App() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
 
   return (
     <div className="bg-black text-white overflow-x-hidden relative">
       <HeroSection />
       <AboutSection />
       <ContactPanel />
-
-      {/* Progress bar */}
-      <motion.div
-        className="fixed left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-blue-500 bottom-0 z-50 rounded-sm origin-left"
-        style={{ scaleX }}
-      />
     </div>
   );
 }
