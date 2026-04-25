@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import './App.css';
 import TypewriterCycle from './components/ui/typewriter-effect';
 
@@ -117,14 +117,14 @@ function AboutSection() {
       className="min-h-screen snap-start flex justify-center items-center relative px-6 sm:px-12 py-16 
                  bg-gradient-to-b from-black via-slate-1000 to-slate-1000 overflow-hidden"
     >
-      <motion.div
+      {/* <motion.div
         className="max-w-7xl w-full flex flex-col lg:flex-row items-center gap-12"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 1, ease: 'easeOut' }}
-      >
-        <div className="w-full">
+      > */}
+        <div className="max-w-7xl w-full flex flex-col lg:flex-row items-center gap-12">
           <div className="space-y-8">
             <h2
               className="text-4xl lg:text-5xl font-bold 
@@ -174,7 +174,7 @@ function AboutSection() {
             </div>
           </div>
         </div>
-      </motion.div>
+      {/* </motion.div> */}
 
       {/* Modal */}
       <AnimatePresence>
