@@ -8,6 +8,7 @@ const App = lazy(() => import('./App'));
 const Blog = lazy(() => import('./pages/blog'));
 const Competitions = lazy(() => import('./pages/competitions'));
 const BlogPost = lazy(() => import('./pages/blog/PostPage'));
+const Drone = lazy(() => import('./pages/drone'));
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: 'blog', element: <Blog /> },
       { path: 'blog/:slug', element: <BlogPost /> },
       { path: 'comps', element: <Competitions /> },
+      { path: 'drone', element: <Drone /> },
     ],
   },
 ]);

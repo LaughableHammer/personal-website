@@ -140,7 +140,7 @@ function AboutSection() {
                 I'm involved with recruiting and leading subcommittee to build projects that improve technical ability and also have an impact on the security community at UNSW.
               </p>
               <p>
-                Alongside I'm a part-time penetration tester in APS,
+                Alongside I'm an OSCP-certified penetration tester in APS,
                 focusing primarily on web app security.
               </p>
               <p>
@@ -300,6 +300,7 @@ function App() {
       <HeroSection />
       <AboutSection />
       <ContactPanel />
+      <p className="text-black">congrats, you made it to the end, find some cool drone photos at /drone</p>
     </div>
   );
 }
