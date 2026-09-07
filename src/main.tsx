@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { NotFound } from './components/NotFound';
 
 const App = lazy(() => import('./App'));
 const Blog = lazy(() => import('./pages/blog'));
@@ -16,30 +17,31 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <App /> },
-      { path: 'blog', element: <Blog /> },
-      { path: 'blog/:slug', element: <BlogPost /> },
+      {
+        path: 'blog',
+        element: <Blog />,
+        children: [{ path: ':slug', element: <BlogPost /> }],
+      },
       { path: 'comps', element: <Competitions /> },
       { path: 'drone', element: <Drone /> },
+      { path: '*', element: <NotFound /> },
     ],
   },
 ]);
 
-function Root() {
+export function Root() {
   useEffect(() => {
     const preload = () => {
       import('./pages/blog');
       import('./pages/blog/PostPage');
       import('./pages/competitions');
     };
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(preload);
-    } else {
-      setTimeout(preload, 200);
-    }
+    if ('requestIdleCallback' in window) requestIdleCallback(preload);
+    else setTimeout(preload, 200);
   }, []);
 
   return (
-    <Suspense fallback={<div className="text-white p-10">Loading...</div>}>
+    <Suspense fallback={<div className="loading-state">Loading...</div>}>
       <RouterProvider router={router} />
     </Suspense>
   );
@@ -48,5 +50,5 @@ function Root() {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Root />
-  </StrictMode>
+  </StrictMode>,
 );
