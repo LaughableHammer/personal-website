@@ -1,9 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import Fuse from 'fuse.js';
 import { ALL_TAGS, TAG_CLASSES } from '../blog-ui';
-import { CHALLENGE_PROGRESS_EVENT, getSolvedChallenges } from '../challenge-progress';
+import {
+  CHALLENGE_PROGRESS_EVENT,
+  getSolvedChallenges,
+  isDroneGalleryUnlocked,
+  unlockDroneGallery,
+} from '../challenge-progress';
+import { ChallengeUnlock } from '../components/ChallengeUnlock';
 import { PageHero } from '../components/PageHero';
 import { posts, type Tag } from '../posts';
 
@@ -11,6 +17,10 @@ export default function Blog() {
   const [search, setSearch] = useState('');
   const [activeTag, setActiveTag] = useState<Tag | null>(null);
   const [solvedChallenges, setSolvedChallenges] = useState(() => new Set(getSolvedChallenges()));
+  const [unlockOpen, setUnlockOpen] = useState(false);
+  const [droneUnlocked, setDroneUnlocked] = useState(isDroneGalleryUnlocked);
+  const location = useLocation();
+  const closeUnlock = useCallback(() => setUnlockOpen(false), []);
 
   useEffect(() => {
     const updateProgress = () => setSolvedChallenges(new Set(getSolvedChallenges()));
@@ -21,6 +31,16 @@ export default function Blog() {
       window.removeEventListener('storage', updateProgress);
     };
   }, []);
+
+  const allChallengesSolved = posts.length > 0 && posts.every((post) => solvedChallenges.has(post.slug));
+
+  useEffect(() => {
+    if (allChallengesSolved && location.pathname === '/blog' && !droneUnlocked) {
+      unlockDroneGallery();
+      setDroneUnlocked(true);
+      setUnlockOpen(true);
+    }
+  }, [allChallengesSolved, droneUnlocked, location.pathname]);
 
   const fuse = useMemo(() => new Fuse(posts, {
     keys: ['title', 'summary'],
@@ -106,6 +126,7 @@ export default function Blog() {
         ))}
       </div>
       <Outlet />
+      {unlockOpen && <ChallengeUnlock onClose={closeUnlock} />}
     </>
   );
 }

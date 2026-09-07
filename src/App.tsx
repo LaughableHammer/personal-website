@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import { Award, ShieldCheck, Trophy } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import TypewriterCycle from './components/ui/typewriter-effect';
 import { Dialog } from './components/ui/dialog';
 import { competitions, contacts, profile, skills, type Skill } from './site-content';
@@ -75,10 +74,6 @@ export default function App() {
             ))}
           </div>
         </section>
-
-        <p className="easter-egg">
-          congrats, you made it to the end, find some cool drone photos at <Link to="/drone">/drone</Link>
-        </p>
       </div>
 
       {activeSkill && (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { DRONE_UNLOCK_EVENT, isDroneGalleryUnlocked } from '../../challenge-progress';
 
 const navItems = [
   { name: 'Scoreboard', link: '/comps' },
@@ -9,12 +10,23 @@ const navItems = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [droneUnlocked, setDroneUnlocked] = useState(isDroneGalleryUnlocked);
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
     document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'dark' : 'light',
   );
   const location = useLocation();
 
   useEffect(() => setOpen(false), [location.pathname]);
+
+  useEffect(() => {
+    const updateUnlock = () => setDroneUnlocked(isDroneGalleryUnlocked());
+    window.addEventListener(DRONE_UNLOCK_EVENT, updateUnlock);
+    window.addEventListener('storage', updateUnlock);
+    return () => {
+      window.removeEventListener(DRONE_UNLOCK_EVENT, updateUnlock);
+      window.removeEventListener('storage', updateUnlock);
+    };
+  }, []);
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-color-scheme: dark)');
@@ -63,6 +75,14 @@ export function Navbar() {
               {item.name}
             </NavLink>
           ))}
+          {droneUnlocked && (
+            <NavLink
+              to="/drone"
+              className={({ isActive }) => `navbar-link${isActive ? ' is-active' : ''}`}
+            >
+              Drone
+            </NavLink>
+          )}
           <NavLink
             to="/"
             end
