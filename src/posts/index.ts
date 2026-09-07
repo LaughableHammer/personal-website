@@ -8,6 +8,8 @@ export interface Post {
   date: string;
   tags: Tag[];
   content: string;
+  youtubeId?: string;
+  youtubeStart?: number;
 }
 
 function parseFrontmatter(raw: string): { data: Record<string, unknown>; content: string } {
@@ -44,6 +46,10 @@ export const posts: Post[] = Object.entries(modules)
       date:    typeof data.date    === 'string' ? data.date    : '',
       tags:    Array.isArray(data.tags) ? data.tags as Tag[]   : [],
       content,
+      youtubeId: typeof data.youtubeId === 'string' ? data.youtubeId : undefined,
+      youtubeStart: typeof data.youtubeStart === 'string'
+        ? Number.parseInt(data.youtubeStart, 10)
+        : undefined,
     };
   })
   .sort((a, b) => b.date.localeCompare(a.date));
