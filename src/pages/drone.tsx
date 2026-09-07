@@ -1,7 +1,5 @@
+import { NotFound } from '../components/NotFound';
+
 export default function Drone() {
-  return (
-    <>
-      404 i haven't added content yet error :(
-    </>
-  )
+  return <NotFound drone />;
 }
