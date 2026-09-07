@@ -1,13 +1,20 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeSlug from 'rehype-slug';
 import 'highlight.js/styles/github-dark.css';
 import { Dialog } from '../../components/ui/dialog';
 import { getSolvedChallenges, markChallengeSolved } from '../../challenge-progress';
 import { getPost } from '../../posts';
 import { TAG_CLASSES } from '../../blog-ui';
+
+interface TableOfContentsEntry {
+  id: string;
+  level: 1 | 2;
+  title: string;
+}
 
 export default function PostPage() {
   const { slug } = useParams();
@@ -15,7 +22,25 @@ export default function PostPage() {
   const [solved, setSolved] = useState(() => getSolvedChallenges().includes(slug ?? ''));
   const navigate = useNavigate();
   const location = useLocation();
+  const articleRef = useRef<HTMLElement>(null);
+  const [tableOfContents, setTableOfContents] = useState<TableOfContentsEntry[]>([]);
   const fromChallenges = Boolean((location.state as { fromChallenges?: boolean } | null)?.fromChallenges);
+
+  useLayoutEffect(() => {
+    if (!post) {
+      setTableOfContents([]);
+      return;
+    }
+
+    const entries = Array.from(articleRef.current?.querySelectorAll<HTMLHeadingElement>('h1, h2') ?? [])
+      .filter((heading) => heading.id && heading.textContent?.trim())
+      .map((heading) => ({
+        id: heading.id,
+        level: Number(heading.tagName.slice(1)) as 1 | 2,
+        title: heading.textContent!.trim(),
+      }));
+    setTableOfContents(entries);
+  }, [post]);
 
   const close = useCallback(() => {
     if (fromChallenges) navigate(-1);
@@ -50,11 +75,37 @@ export default function PostPage() {
           })}
         </time>
       </div>
-      <p className="post-summary">{post.summary}</p>
-      <article className="post-article">
-        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+      {!post.youtubeId && <p className="post-summary">{post.summary}</p>}
+      {tableOfContents.length > 0 && (
+        <details className="post-toc" open>
+          <summary>Table of contents</summary>
+          <nav aria-label="Table of contents">
+            <ol>
+              {tableOfContents.map((heading) => (
+                <li key={heading.id} className={`toc-level-${heading.level}`}>
+                  <a href={`#${heading.id}`}>{heading.title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </details>
+      )}
+      <article className="post-article" ref={articleRef}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight, rehypeSlug]}>
           {post.content}
         </ReactMarkdown>
+        {post.youtubeId && (
+          <div className="post-video">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${post.youtubeId}?start=${post.youtubeStart ?? 0}`}
+              title={`${post.title} video`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+        )}
       </article>
       <div className="challenge-submit-row">
         <button
